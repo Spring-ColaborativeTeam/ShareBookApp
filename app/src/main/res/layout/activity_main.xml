@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d80027"
+    tools:context="com.sharebook.felipe.sharebookapp.MainActivity">
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="379dp"
+        android:layout_height="26dp"
+
+        android:width="@dimen/com_facebook_button_corner_radius"
+        android:height="@dimen/com_facebook_share_button_text_size"
+        android:editable="true"
+        android:elevation="0dp"
+        android:hapticFeedbackEnabled="true"
+        android:text="Login with Facebook"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="434dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/txt_user"
+        android:layout_width="376dp"
+        android:layout_height="47dp"
+        android:layout_alignEnd="@+id/btn_login"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/btn_login"
+        android:layout_below="@+id/imageView4"
+        android:layout_marginTop="47dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:textColorLink="@color/cardview_light_background"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="246dp" />
+
+    <EditText
+        android:id="@+id/txt_password"
+        android:layout_width="376dp"
+        android:layout_height="47dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txt_user"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:textColorLink="@color/cardview_light_background"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="312dp" />
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="382dp"
+        android:layout_height="49dp"
+        android:backgroundTint="@android:color/background_light"
+        android:onClick="onLoginClicked"
+        android:text="Login"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="368dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/txt_password"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="373dp"
+        android:layout_height="225dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/logotipo"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="12dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/com_facebook_smart_device_instructions_or"
+        android:textColor="@color/cardview_light_background"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="417dp"
+        tools:text="@string/com_facebook_smart_device_instructions_or"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/btn_login"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="371dp"
+        android:layout_height="26dp"
+        android:fontFamily="cursive"
+        android:text="Comparte un libro, comparte cultura"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="26sp"
+        android:textStyle="normal|bold|italic"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="536dp"
+        android:layout_above="@+id/txt_user"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#32db64"
+        android:text="Quiero Registrarme"
+        android:textColor="@android:color/background_light"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="486dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btn_login"
+        android:layout_alignEnd="@+id/btn_login"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</android.widget.RelativeLayout>
