@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    startActivity( new Intent(getBaseContext(), ProfileActivity.class ) );
+                    startActivity( new Intent(getBaseContext(), MenuActivity.class ) );
                     finish();
                     Log.d("", "onAuthStateChanged:signed_in:" + user.getUid());
                     System.out.println("Login ok"+ user.getDisplayName());
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("", "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 System.out.println("Login success" + loginResult);
-                startActivity( new Intent(getBaseContext(), ProfileActivity.class ) );
+                startActivity( new Intent(getBaseContext(), MenuActivity.class ) );
                 finish();
             }
 
