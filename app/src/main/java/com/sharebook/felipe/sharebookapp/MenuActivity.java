@@ -108,7 +108,8 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.pub_libro) {
             fragment = new PublicarFragment();
         } else if (id == R.id.dis_libro) {
-            fragment = new PublicarFragment();
+            fragment = new LibrosDispActivity();
+
         } else if (id == R.id.nav_slideshow) {
             fragment = new PublicarFragment();
         } else if (id == R.id.nav_manage) {

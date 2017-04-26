@@ -17,9 +17,9 @@
         android:id="@+id/imageView"
         android:layout_width="112dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.59"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
-        android:layout_weight="0.59" />
+        app:srcCompat="@android:drawable/sym_def_app_icon" />
 
     <TextView
         android:layout_width="match_parent"
@@ -27,7 +27,6 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Usuario"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
 
 
 </LinearLayout>
