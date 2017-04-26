@@ -1,0 +1,31 @@
+[{
+	"id": 1,
+	"name": "La Biblia",
+	"description": "Los misterios de la biblia y las aventuras de Jesus",
+	"imageUrl": "http://www.verbodivino.es/portada/3993/la-biblia---edicion-bolsillo-simil-piel.jpg"
+}, {
+	"id": 2,
+	"name": "El Alquimista",
+	"description": "Todo tipo de aventuras para escalar en los misterios de la vida de un hombre.",
+	"imageUrl": "https://www.planetadelibros.com/usuaris/libros/fotos/120/original/el-alquimista_9788408130451.jpg"
+}, {
+	"id": 3,
+	"name": "Ensayo Sobre la Ceguera",
+	"description": "Una epidemia de ceguera invade el mundo llevando a las personas a usar sus instintos mas primitivos para sobrevivir.",
+	"imageUrl": "http://www.laaudioteca.com/wp-content/uploads/2016/01/Ensayo-sobre-la-ceguera.jpg"
+}, {
+	"id": 4,
+	"name": "Cain",
+	"description": "La maldad del hombre, en el hombre",
+	"imageUrl": "https://barbaravb.files.wordpress.com/2011/02/cain.jpg"
+}, {
+	"id": 5,
+	"name": "Cien Años de Soledad",
+	"description": "Literatura Colombiana",
+	"imageUrl": "https://aldogal.files.wordpress.com/2011/03/cien-anos-de-soledad.jpg"
+}, {
+	"id": 6,
+	"name": "El Coronel no tiene quien le escriba",
+	"shortName": "Aca encontraran enlaces que podran ayudarte con tus alumnos",
+	"imageUrl": "http://www.programaibermedia.com/wp-content/uploads/2013/05/El_coronel.jpg"
+}]
