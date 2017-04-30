@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/map_fragment"
+            android:icon="@drawable/messenger_bubble_small_white"
+            android:title="@string/Ubicacion_menu" />
+        <item
             android:id="@+id/pub_libro"
             android:icon="@drawable/ic_menu_camera"
             android:title="Publicar Libro" />

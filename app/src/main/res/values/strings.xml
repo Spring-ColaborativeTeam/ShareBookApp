@@ -8,4 +8,6 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_publicar">PublicarActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="Ubicacion_menu">Ubicación</string>
 </resources>
