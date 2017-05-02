@@ -1,9 +1,9 @@
 package com.sharebook.felipe.sharebookapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Button btn_loggin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,5 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-                // ...
+
+
+    // ...
     }
