@@ -112,6 +112,11 @@ public class MainActivity extends AbstractAsyncActivity {
 
     }
 
+    public void registrar (View view){
+        startActivity( new Intent(getBaseContext(), RegisterActivity.class ) );
+
+    }
+
 
     @Override
     public void onStart() {
@@ -128,12 +133,15 @@ public class MainActivity extends AbstractAsyncActivity {
 
         }
     }
+
     public void onLoginClicked( View view )
     {
         btn_loggin.setEnabled( false );
         mAuth.signInAnonymously();
         //new FetchSecuredResourceTask().execute();
     }
+
+
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d("", "handleFacebookAccessToken:" + token);
 

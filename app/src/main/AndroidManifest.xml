@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LibrosDispActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
