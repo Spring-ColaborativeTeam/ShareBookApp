@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_red_dark"
-    tools:context="com.sharebook.felipe.sharebookapp.MenuActivity">
-
+    tools:context="com.sharebook.felipe.sharebookapp.PublicarFragment">
     <LinearLayout
         android:layout_width="368dp"
         android:layout_height="551dp"
@@ -139,13 +138,14 @@
             app:srcCompat="@drawable/addlibro"
             tools:layout_editor_absoluteX="157dp"
             tools:layout_editor_absoluteY="297dp" />
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="71dp"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/agregar"
-            android:layout_weight="2.29" />
+            android:layout_weight="2.29"
+            android:src="@drawable/agregar" />
     </LinearLayout>
 
 
