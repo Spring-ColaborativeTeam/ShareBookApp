@@ -51,7 +51,7 @@ public class MainActivity extends AbstractAsyncActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Button btn_loggin;
     protected static final String TAG = MainActivity.class.getSimpleName();
-
+    CallbackManager mCallbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class MainActivity extends AbstractAsyncActivity {
             }
         };
 
-        CallbackManager mCallbackManager = CallbackManager.Factory.create();
+        mCallbackManager  = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         btn_loggin = (Button)findViewById(R.id.btn_login);
         loginButton.setReadPermissions("email", "public_profile");

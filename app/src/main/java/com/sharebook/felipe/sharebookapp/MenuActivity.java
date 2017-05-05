@@ -33,6 +33,7 @@ import java.io.IOException;
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    PublicarFragment pubFra = new PublicarFragment();
     FragmentManager mFragmentManager;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_GALLERY = 2;
@@ -53,14 +54,6 @@ public class MenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -115,7 +108,7 @@ public class MenuActivity extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.pub_libro) {
-            fragment = new PublicarFragment();
+            fragment = pubFra;
         } else if (id == R.id.dis_libro) {
             fragment = new LibrosDispActivity();
 
@@ -166,6 +159,7 @@ public class MenuActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             //uriImagen = data.getData().getPath();
             Bundle extras = data.getExtras();
@@ -174,12 +168,12 @@ public class MenuActivity extends AppCompatActivity
         }  else if (REQUEST_IMAGE_GALLERY == requestCode) {
             Uri uri = data.getData();
             uriImagen = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                imagen.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //try {
+               // Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+               // imagen.setImageBitmap(bitmap);
+            //} //catch (IOException e) {
+              //  e.printStackTrace();
+            //}
         }
     }
 
