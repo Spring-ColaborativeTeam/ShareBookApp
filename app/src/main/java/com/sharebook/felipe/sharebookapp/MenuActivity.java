@@ -1,6 +1,7 @@
 package com.sharebook.felipe.sharebookapp;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,9 +11,9 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -34,7 +35,9 @@ public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     PublicarFragment pubFra = new PublicarFragment();
-    FragmentManager mFragmentManager;
+    FragmentManager fragmentManager;
+    FragmentTransaction transaction;
+    MapsActivity mapFra = new MapsActivity();
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_GALLERY = 2;
     ImageView imagen;
@@ -64,6 +67,10 @@ public class MenuActivity extends AppCompatActivity
         imagen=(ImageView)findViewById(R.id.imageView);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        fragmentManager = getFragmentManager();
+        transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.mainFrame, mapFra);
+        transaction.commit();
 
     }
 
@@ -109,6 +116,8 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.pub_libro) {
             fragment = pubFra;
+        } else if (id == R.id.map_fragment) {
+            fragment = mapFra;
         } else if (id == R.id.dis_libro) {
             fragment = new LibrosDispActivity();
 
@@ -122,7 +131,7 @@ public class MenuActivity extends AppCompatActivity
             fragment = new PublicarFragment();
         }
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.mainFrame, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
