@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#d80027"
+    >
 
     <ImageView
         android:src="@drawable/book"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:scaleType="center"
-        android:background="#FFFFBB33"
+        android:background="#d80027"
         android:contentDescription="@string/app_name" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/cardview_light_background"
         android:text="Nombre: Libro de Prueba" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/cardview_light_background"
         android:text="Editorial: Edi de Prueba" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/cardview_light_background"
         android:text="Autor: Autor de prueba" />
 
     <Button
         android:id="@+id/button5"
-        style="@android:style/Widget.Material.Light.Button.Small"
+        style="@style/Widget.AppCompat.Button"
+        android:backgroundTint="@android:color/background_light"
+        android:textSize="17sp"
+        android:textColor="@android:color/holo_red_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Intercambiar" />
