@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Button btn_loggin;
-
+    CallbackManager mCallbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this);
+ FacebookSdk.sdkInitialize(this);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        CallbackManager mCallbackManager = CallbackManager.Factory.create();
+         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         btn_loggin = (Button)findViewById(R.id.btn_login);
         loginButton.setReadPermissions("email", "public_profile");
@@ -69,10 +69,9 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
 
                 Log.d("", "facebook:onSuccess:" + loginResult);
+                System.out.println("eNTRE AL LOGINNNN ZZZZZZZZZ");
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                System.out.println("Login success" + loginResult);
-                startActivity( new Intent(getBaseContext(), MenuActivity.class ) );
-                finish();
+
             }
 
             @Override
@@ -134,10 +133,18 @@ public class MainActivity extends AppCompatActivity {
                         }
 
 
+
+
                     }
                 });
     }
 
 
     // ...
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
+}
