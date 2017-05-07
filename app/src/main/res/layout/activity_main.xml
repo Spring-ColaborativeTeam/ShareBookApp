@@ -78,6 +78,8 @@
         android:layout_below="@+id/txt_password"
         android:layout_centerHorizontal="true" />
 
+    
+
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="373dp"
