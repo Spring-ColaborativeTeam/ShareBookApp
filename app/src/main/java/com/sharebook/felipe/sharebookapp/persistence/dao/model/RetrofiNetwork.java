@@ -14,7 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofiNetwork {
-    private static final String BASE_URL = "https://sharebookapp.herokuapp.com/libros/disponibles/";
+    //private static final String BASE_URL = "https://sharebookapp.herokuapp.com/libros/disponibles/";
+    private static final String BASE_URL = "https://sharebookapp.herokuapp.com/";
     public static final String BASE_URLIMG ="https://sharebookapp.herokuapp.com/libros/1/picture";
 
     private LibroService libroSrvc;
