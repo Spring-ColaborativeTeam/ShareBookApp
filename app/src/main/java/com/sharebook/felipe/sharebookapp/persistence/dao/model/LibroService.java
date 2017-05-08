@@ -12,10 +12,16 @@ import retrofit2.http.POST;
  */
 
 public interface LibroService {
-    @GET( "diego@sharebook.com" )
+    @GET( "libros/disponibles/diego@sharebook.com" )
     Call<List<Libro>> getLibrosList( );
     @POST("aca va el segmento que hace post de la URL")
     Call<Libro> addLibro(@Body Libro libro);
+
+    @GET("mislibros/diego@sharebook.com")
+    Call<Libro> getMisLibros();
+
+    @GET("solicitud/usuario/diego@sharebook.com")
+    Call<Solicitud> getSolicitudUsuario();
 
 
 }
