@@ -1,20 +1,14 @@
 package com.sharebook.felipe.sharebookapp;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -100,5 +91,9 @@ public class PublicarFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static Intent getCallingIntent(Context context) {
+        return new Intent(context, PublicarFragment.class);
     }
 }
