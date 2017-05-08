@@ -12,6 +12,10 @@ import retrofit2.http.POST;
  */
 
 public interface LibroService {
+
+    @POST("registro")
+    Call<Usuario> createUser(@Body Usuario usuario);
+
     @GET( "libros/disponibles/diego@sharebook.com" )
     Call<List<Libro>> getLibrosList( );
     @POST("diego@sharebook.com")
