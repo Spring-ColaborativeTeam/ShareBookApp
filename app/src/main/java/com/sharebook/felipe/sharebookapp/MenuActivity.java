@@ -119,15 +119,15 @@ public class MenuActivity extends AppCompatActivity
             setTitle("Libros Disponibles");
             fragment = new LibrosDispActivity();
         }
-        else if (id == R.id.nav_share) {
-            fragment = new PublicarFragment();
-        } else if (id == R.id.nav_send) {
-            fragment = new PublicarFragment();
-        }
         else if (id == R.id.mis_libro) {
             setTitle("Mis Libros");
             fragment = new MisLibrosActivity();
         }
+        else if(id == R.id.solicitud) {
+            setTitle("Solicitudes");
+            fragment = new SolicitudAcivity();
+        }
+
 
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.mainFrame, fragment);
