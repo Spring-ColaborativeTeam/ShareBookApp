@@ -52,6 +52,7 @@ public class LibrosDispActivity extends Fragment {
             network = new RetrofiNetwork();
             executorService = Executors.newFixedThreadPool(1);
             executorService.execute(new Runnable() {
+
                 @Override
                 public void run() {
                     network.getLibros(new RequestCallBack<List<Libro>>() {
