@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,21 +46,29 @@ import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RequestCallBack;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
+    private  RetrofiNetwork network;
+    private  ExecutorService executorService;
+    private List<Libro> libros;
     //DataBarSingleton dbs = DataBarSingleton.getInstance();
     GoogleMap mGoogleMap;
     MapView mapView;
     View view;
+    private List<Libro> librosMarkers = new LinkedList<Libro>();
+    LibroAdapter libroAdapter;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.content_menu, container, false);
+
         return view;
     }
 
@@ -67,6 +76,7 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mapView = (MapView) view.findViewById(R.id.map);
+
         if(mapView != null){
             mapView.onCreate(null);
             mapView.onResume();
@@ -81,11 +91,30 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
         mGoogleMap = googleMap;
         LatLng location = new LatLng(4.7826755,-74.0447828);
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mGoogleMap.addMarker(new MarkerOptions().position(location).title("ECI").snippet("Esta es la U :v").icon(BitmapDescriptorFactory.fromResource(R.drawable.book2)));
+        Log.d("1","aunque seaaaaaaaaaaa");
+
         CameraPosition Bogota = CameraPosition.builder().target(location).zoom(17).bearing(0).tilt(45).build();
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Bogota));
         mGoogleMap.setOnMarkerClickListener(this);
-        //addMarkers(mGoogleMap);
+        traerLibrosRetrofit();
+        /*try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+
+        }*/
+
+    }
+
+    private void addMarkers(GoogleMap mGoogleMap){
+
+        if(librosMarkers != null) {
+
+            for (int i = 0; i < librosMarkers.size(); i++) {
+                Log.d("lolo","Encontreeeeeeeeeeeee libro");
+                LatLng location = new LatLng(4.7826755+i,-74.0447828);
+                mGoogleMap.addMarker(new MarkerOptions().position(location).title(librosMarkers.get(i).getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.book2)));
+            }
+        }
     }
 
     @Override
@@ -100,34 +129,41 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
 
     }
 
-    private class ImplementadordeRetrofit {
-        private final RetrofiNetwork network;
-        private final ExecutorService executorService;
-        private List<Libro> libros;
+    public void traerLibrosRetrofit(){
+        network = new RetrofiNetwork();
+        executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new Runnable() {
 
-        public ImplementadordeRetrofit() {
-            network = new RetrofiNetwork();
-            executorService = Executors.newFixedThreadPool(1);
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    network.getLibros(new RequestCallBack<List<Libro>>() {
-                        @Override
-                        public void onSuccess(List<Libro>  response) {
-                            libros = response;
-                            System.out.print("Traje los libros");
+            @Override
+            public void run() {
+                network.getLibros(new RequestCallBack<List<Libro>>() {
+                    @Override
+                    public void onSuccess(List<Libro>  response) {
+                        Log.d("sdasd","bien  "+response.size());
+                        libros = response;
+                        librosMarkers = libros;
+
+                    }
+
+                    @Override
+                    public void onFailed(NetworkException e) {
+                        Log.d("loadssalo","pailaaaaaaa");
+                        libros = null;
+                    }
+                });
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (libros != null) {
+                            addMarkers(mGoogleMap);
                         }
-
-                        @Override
-                        public void onFailed(NetworkException e) {
-                            libros = null;
-                        }
-                    });
-
-                }
-            });
-        }
+                    }
+                });
+            }
+        });
     }
+
+
 
 
     public Bitmap getBitmap(Context context, int drawableId) {
@@ -150,4 +186,6 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
         vectorDrawable.draw(canvas);
         return bitmap;
     }
+
+
 }
