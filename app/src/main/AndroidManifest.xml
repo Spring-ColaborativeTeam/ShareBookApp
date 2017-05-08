@@ -53,6 +53,7 @@
             android:value="AIzaSyD6oHftR1lKI2ZuI6tAYXbZZEDY69_OXm4" />
 
         <activity android:name=".SolicitudAcivity"></activity>
+        <activity android:name=".MisLibrosActivity"></activity>
     </application>
 
 </manifest>

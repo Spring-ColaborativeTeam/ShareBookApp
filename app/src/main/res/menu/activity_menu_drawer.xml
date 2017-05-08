@@ -4,24 +4,21 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/map_fragment"
-            android:icon="@drawable/messenger_bubble_small_white"
+            android:icon="@drawable/map_marker_radius"
             android:title="@string/Ubicacion_menu" />
         <item
             android:id="@+id/pub_libro"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/book_plus"
             android:title="Publicar Libro" />
         <item
             android:id="@+id/dis_libro"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/book_open_page_variant"
             android:title="Libros Disponibles" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/mis_libro"
+            android:icon="@drawable/library_books"
+            android:title="Mis Libros" />
+
     </group>
 
     <item android:title="Communicate">
