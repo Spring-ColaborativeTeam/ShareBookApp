@@ -1,5 +1,6 @@
 package com.sharebook.felipe.sharebookapp.persistence.dao.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.sql.Blob;
@@ -14,6 +15,7 @@ public class Usuario extends BaseModel {
 
 
     @DatabaseField
+    @SerializedName("title")
     private String password;
 
     @DatabaseField
