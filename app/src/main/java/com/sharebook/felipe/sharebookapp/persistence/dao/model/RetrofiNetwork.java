@@ -56,6 +56,10 @@ public class RetrofiNetwork {
             }
 
     });
-}
+    }
+
+    public void registroUsuario(Usuario usuario){
+        libroSrvc.createUser(usuario);
+    }
 
 }
