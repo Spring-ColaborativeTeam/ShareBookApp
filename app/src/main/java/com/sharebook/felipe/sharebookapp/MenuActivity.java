@@ -2,18 +2,15 @@ package com.sharebook.felipe.sharebookapp;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,8 +25,6 @@ import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
-
-import java.io.IOException;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -115,20 +110,23 @@ public class MenuActivity extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.pub_libro) {
+            setTitle("Publicar Libro");
             fragment = pubFra;
         } else if (id == R.id.map_fragment) {
+            setTitle("Ubicación");
             fragment = mapFra;
         } else if (id == R.id.dis_libro) {
+            setTitle("Libros Disponibles");
             fragment = new LibrosDispActivity();
-
-        } else if (id == R.id.nav_slideshow) {
-            fragment = new PublicarFragment();
-        } else if (id == R.id.nav_manage) {
-            fragment = new PublicarFragment();
-        } else if (id == R.id.nav_share) {
+        }
+        else if (id == R.id.nav_share) {
             fragment = new PublicarFragment();
         } else if (id == R.id.nav_send) {
             fragment = new PublicarFragment();
+        }
+        else if (id == R.id.mis_libro) {
+            setTitle("Mis Libros");
+            fragment = new MisLibrosActivity();
         }
 
         transaction = fragmentManager.beginTransaction();
