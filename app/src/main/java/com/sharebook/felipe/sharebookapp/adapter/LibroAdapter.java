@@ -37,7 +37,9 @@ public class LibroAdapter extends RecyclerView.Adapter<LibroAdapter.ViewHolder>{
         Libro publi = publicacions.get(position);
         viewHolder.name.setText(publi.getName());
         viewHolder.description.setText(publi.getDescription());
-        Picasso.with(context).load(publi.getImageUrl()).into(viewHolder.logo);
+        String base_tmp = "https://sharebookapp.herokuapp.com/libros/"+publi.getId()+"/picture";
+        System.out.println("id"+publi.getId()+ "URL"+ publi.getImageUrl());
+        Picasso.with(context).load(base_tmp).into(viewHolder.logo);
     }
 
     @Override

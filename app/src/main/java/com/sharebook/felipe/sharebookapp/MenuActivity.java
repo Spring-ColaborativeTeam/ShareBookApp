@@ -1,18 +1,16 @@
 package com.sharebook.felipe.sharebookapp;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,12 +26,13 @@ import android.widget.ImageView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
 
-import java.io.IOException;
-
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FragmentManager mFragmentManager;
+    PublicarFragment pubFra = new PublicarFragment();
+    FragmentManager fragmentManager;
+    FragmentTransaction transaction;
+    MapsActivity mapFra = new MapsActivity();
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_GALLERY = 2;
     ImageView imagen;
@@ -53,14 +52,6 @@ public class MenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,6 +62,10 @@ public class MenuActivity extends AppCompatActivity
         imagen=(ImageView)findViewById(R.id.imageView);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        fragmentManager = getFragmentManager();
+        transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.mainFrame, mapFra);
+        transaction.commit();
 
     }
 
@@ -115,21 +110,26 @@ public class MenuActivity extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.pub_libro) {
-            fragment = new PublicarFragment();
+            setTitle("Publicar Libro");
+            fragment = pubFra;
+        } else if (id == R.id.map_fragment) {
+            setTitle("Ubicación");
+            fragment = mapFra;
         } else if (id == R.id.dis_libro) {
+            setTitle("Libros Disponibles");
             fragment = new LibrosDispActivity();
-
-        } else if (id == R.id.nav_slideshow) {
-            fragment = new PublicarFragment();
-        } else if (id == R.id.nav_manage) {
-            fragment = new PublicarFragment();
-        } else if (id == R.id.nav_share) {
-            fragment = new PublicarFragment();
-        } else if (id == R.id.nav_send) {
-            fragment = new PublicarFragment();
+        }
+        else if (id == R.id.mis_libro) {
+            setTitle("Mis Libros");
+            fragment = new MisLibrosActivity();
+        }
+        else if(id == R.id.solicitud) {
+            setTitle("Solicitudes");
+            fragment = new SolicitudAcivity();
         }
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.mainFrame, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -166,6 +166,7 @@ public class MenuActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             //uriImagen = data.getData().getPath();
             Bundle extras = data.getExtras();
@@ -174,12 +175,12 @@ public class MenuActivity extends AppCompatActivity
         }  else if (REQUEST_IMAGE_GALLERY == requestCode) {
             Uri uri = data.getData();
             uriImagen = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                imagen.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //try {
+               // Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+               // imagen.setImageBitmap(bitmap);
+            //} //catch (IOException e) {
+              //  e.printStackTrace();
+            //}
         }
     }
 

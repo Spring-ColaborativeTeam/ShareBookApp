@@ -1,155 +1,191 @@
 package com.sharebook.felipe.sharebookapp;
 
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.RequestCallBack;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-    private GoogleMap mMap;
-    private GoogleApiClient googleApiClient;
-    private static final int ACCESS_LOCATION_PERMISSION_CODE = 10;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private boolean mPermissionDenied = false;
-    private Location lastLocation;
+public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
+    private  RetrofiNetwork network;
+    private  ExecutorService executorService;
+    private List<Libro> libros;
+    //DataBarSingleton dbs = DataBarSingleton.getInstance();
+    GoogleMap mGoogleMap;
+    MapView mapView;
+    View view;
+    private List<Libro> librosMarkers = new LinkedList<Libro>();
+    LibroAdapter libroAdapter;
+
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_menu);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.content_menu, container, false);
 
-
-        //Configure Google Maps API Objects
-        //googleApiClient = new GoogleApiClient.Builder( this ).addConnectionCallbacks( this ).
-          //      addOnConnectionFailedListener( this ).addApi( LocationServices.API ).build();
-        //locationRequest.setInterval( 10000 );
-        //locationRequest.setFastestInterval( 5000 );
-        //locationRequest.setPriority( LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY );
-        //googleApiClient.connect();*/
+        return view;
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mapView = (MapView) view.findViewById(R.id.map);
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+        if(mapView != null){
+            mapView.onCreate(null);
+            mapView.onResume();
+            mapView.getMapAsync(this);
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
+        MapsInitializer.initialize(view.getContext());
+        mGoogleMap = googleMap;
+        LatLng location = new LatLng(4.7826755,-74.0447828);
+        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        Log.d("1","aunque seaaaaaaaaaaa");
 
+        CameraPosition Bogota = CameraPosition.builder().target(location).zoom(17).bearing(0).tilt(45).build();
+        mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Bogota));
+        mGoogleMap.setOnMarkerClickListener(this);
+        traerLibrosRetrofit();
+        /*try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
 
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
+        }*/
 
     }
 
-    @SuppressWarnings("MissingPermission")
-    public void showMyLocation()
-    {
-        if ( mMap != null )
-        {
-            String[] permissions = { android.Manifest.permission.ACCESS_FINE_LOCATION,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION };
-            if ( hasPermissions( this, permissions ) )
-            {
-                mMap.setMyLocationEnabled( true );
+    private void addMarkers(GoogleMap mGoogleMap){
 
-                lastLocation = LocationServices.FusedLocationApi.getLastLocation( googleApiClient );
-                if ( lastLocation != null )
-                {
-                    addMarkerAndZoom( lastLocation, "My Location", 15 );
-                }
-            }
-            else
-            {
-                ActivityCompat.requestPermissions( this, permissions, ACCESS_LOCATION_PERMISSION_CODE );
+        if(librosMarkers != null) {
+
+            for (int i = 0; i < librosMarkers.size(); i++) {
+                Log.d("lolo","Encontreeeeeeeeeeeee libro");
+                LatLng location = new LatLng(4.7826755+i,-74.0447828);
+                mGoogleMap.addMarker(new MarkerOptions().position(location).title(librosMarkers.get(i).getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.book2)));
             }
         }
     }
 
-    public static boolean hasPermissions(Context context, String[] permissions )
-    {
-        for ( String permission : permissions )
-        {
-            if ( ContextCompat.checkSelfPermission( context, permission ) == PackageManager.PERMISSION_DENIED )
-            {
-                return false;
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+
+            AlertDialog.Builder alertadd = new AlertDialog.Builder(getActivity());
+            LayoutInflater factory = LayoutInflater.from(getActivity());
+            final View view = factory.inflate(R.layout.dialog_marker_layout, null);
+            alertadd.setView(view);
+            alertadd.show();
+            return true;
+
+    }
+
+    public void traerLibrosRetrofit(){
+        network = new RetrofiNetwork();
+        executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new Runnable() {
+
+            @Override
+            public void run() {
+                network.getLibros(new RequestCallBack<List<Libro>>() {
+                    @Override
+                    public void onSuccess(List<Libro>  response) {
+                        Log.d("sdasd","bien  "+response.size());
+                        libros = response;
+                        librosMarkers = libros;
+
+                    }
+
+                    @Override
+                    public void onFailed(NetworkException e) {
+                        Log.d("loadssalo","pailaaaaaaa");
+                        libros = null;
+                    }
+                });
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (libros != null) {
+                            addMarkers(mGoogleMap);
+                        }
+                    }
+                });
             }
-        }
-        return true;
+        });
     }
 
-    public void addMarkerAndZoom( Location location, String title, int zoom  )
-    {
-        LatLng myLocation = new LatLng( location.getLatitude(), location.getLongitude() );
-        mMap.addMarker( new MarkerOptions().position( myLocation ).title( title ) );
-        mMap.moveCamera( CameraUpdateFactory.newLatLngZoom( myLocation, zoom ) );
-    }
 
-    @Override
-    public void onRequestPermissionsResult( int requestCode, @NonNull String[] permissions,
-                                            @NonNull int[] grantResults )
-    {
-        for ( int grantResult : grantResults )
-        {
-            if ( grantResult == -1 )
-            {
-                return;
-            }
-        }
-        switch ( requestCode )
-        {
-            case ACCESS_LOCATION_PERMISSION_CODE:
-                showMyLocation();
-                break;
-            default:
-                super.onRequestPermissionsResult( requestCode, permissions, grantResults );
+
+
+    public Bitmap getBitmap(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (drawable instanceof BitmapDrawable) {
+            return BitmapFactory.decodeResource(context.getResources(), drawableId);
+        } else if (drawable instanceof VectorDrawable) {
+            return getBitmap((VectorDrawable) drawable);
+        } else {
+            throw new IllegalArgumentException("unsupported drawable type");
         }
     }
 
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static Bitmap getBitmap(VectorDrawable vectorDrawable) {
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorDrawable.draw(canvas);
+        return bitmap;
     }
 
-    @Override
-    public void onConnectionSuspended(int i) {
 
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
 }

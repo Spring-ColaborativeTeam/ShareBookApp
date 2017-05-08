@@ -1,8 +1,9 @@
 package com.sharebook.felipe.sharebookapp;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +25,7 @@ import java.util.concurrent.Executors;
  * Created by Felipe on 25/04/17.
  */
 
-public class LibrosDispActivity extends Fragment{
+public class LibrosDispActivity extends Fragment {
     private RecyclerView recyclerView;
     @Nullable
     @Override
@@ -51,6 +52,7 @@ public class LibrosDispActivity extends Fragment{
             network = new RetrofiNetwork();
             executorService = Executors.newFixedThreadPool(1);
             executorService.execute(new Runnable() {
+
                 @Override
                 public void run() {
                     network.getLibros(new RequestCallBack<List<Libro>>() {
