@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -40,11 +42,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.internal.zzf;
 import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RequestCallBack;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -112,18 +116,30 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
             for (int i = 0; i < librosMarkers.size(); i++) {
                 Log.d("lolo","Encontreeeeeeeeeeeee libro");
                 LatLng location = new LatLng(4.7826755+i,-74.0447828);
-                mGoogleMap.addMarker(new MarkerOptions().position(location).title(librosMarkers.get(i).getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.book2)));
+                MarkerOptions m = new MarkerOptions().position(location).title(librosMarkers.get(i).getName()).visible(true).icon(BitmapDescriptorFactory.fromResource(R.drawable.book2));
+
+                Marker l =mGoogleMap.addMarker(m);
+                l.setTag(librosMarkers.get(i));
+                l.showInfoWindow();
             }
         }
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-
+            Libro libro = (Libro) marker.getTag();
             AlertDialog.Builder alertadd = new AlertDialog.Builder(getActivity());
             LayoutInflater factory = LayoutInflater.from(getActivity());
             final View view = factory.inflate(R.layout.dialog_marker_layout, null);
+            final TextView textNombre = (TextView) view.findViewById(R.id.nombreVentana);
+            textNombre.setText(libro.getName());
+            final TextView textEdi = (TextView) view.findViewById(R.id.ediVentana);
+            textEdi.setText(libro.getDescription());
+            final ImageView imageLibro = (ImageView) view.findViewById(R.id.imagenLibro);
+            String base_tmp = "https://sharebookapp.herokuapp.com/libros/"+libro.getId()+"/picture";
+            Picasso.with(view.getContext()).load(base_tmp).into(imageLibro);
             alertadd.setView(view);
+
             alertadd.show();
             return true;
 
