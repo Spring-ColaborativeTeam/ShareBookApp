@@ -10,4 +10,14 @@
     <string name="title_activity_publicar">PublicarActivity</string>
     <string name="title_activity_maps">Map</string>
     <string name="Ubicacion_menu">Ubicación</string>
+
+    <string name="toast_no_empty_field">Porfavor ingrese todos los campos</string>
+    <string name="progress_login">Iniciando sesión …porfavor espere</string>
+    <string name="progress_signup">Sign up in progress…please wait</string>
+
+    <string name="text_login">Login</string>
+    <string name="text_sign_up">Sign up</string>
+
+    <string name="prompt_login">Click here to login</string>
+    <string name="prompt_signup">Comparte un libro, comparte cultura</string>
 </resources>
