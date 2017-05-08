@@ -183,6 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.22"
             android:text="Registrarme"
+            android:onClick="registro"
             android:visibility="visible" />
 
         <Button

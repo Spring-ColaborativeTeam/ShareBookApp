@@ -3,6 +3,7 @@ package com.sharebook.felipe.sharebookapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,18 +35,13 @@ public class RegisterActivity extends AppCompatActivity {
         EditText nombre = (EditText) findViewById(R.id.nombre);
         EditText cel = (EditText) findViewById(R.id.celular);
         EditText confirm = (EditText) findViewById(R.id.txt_password_confirm);
-        registro = (Button) findViewById(R.id.button3);
+        //registro = (Button) findViewById(R.id.button3);
         this.email = email.getText().toString();
         this.password = pass.getText().toString();
         this.celular = cel.getText().toString();
         this.confirm_password = confirm.getText().toString();
 
-        registro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registro();
-            }
-        });
+
 
 
 
@@ -56,8 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    public void registro(){
-
+    public void registro(View view){
+        Log.d("sadsdasdasdadadas", "entro registro");
         Usuario usuario = new Usuario();
         usuario.setCelular(this.celular);
         usuario.setEmail(this.email);
@@ -65,6 +61,8 @@ public class RegisterActivity extends AppCompatActivity {
         usuario.setNombre(this.nombre);
         resources = new RetrofiNetwork();
         resources.registroUsuario(usuario);
+
+        startActivity( new Intent(getBaseContext(), MainActivity.class ) );
     }
 
 }

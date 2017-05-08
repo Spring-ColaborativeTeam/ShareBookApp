@@ -1,5 +1,7 @@
 package com.sharebook.felipe.sharebookapp.persistence.dao.model;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -59,7 +61,22 @@ public class RetrofiNetwork {
     }
 
     public void registroUsuario(Usuario usuario){
-        libroSrvc.createUser(usuario);
+        Call<Usuario> call = libroSrvc.createUser(usuario);
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+
+                if(response.isSuccessful()){
+                    Log.d("retrofit", response.body().toString());
+                }
+               // Log.d("Registro", response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Log.d("retrofit", call.toString());
+            }
+        });
     }
 
 }
