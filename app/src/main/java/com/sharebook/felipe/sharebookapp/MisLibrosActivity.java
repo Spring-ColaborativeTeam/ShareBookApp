@@ -8,17 +8,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.RequestCallBack;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
+
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class MisLibrosActivity extends Fragment {
 
+    private RetrofiNetwork resources;
+    private ExecutorService executorService;
     private RecyclerView recyclerView;
+    private List<Libro> libros;
 
     public View onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //super.onCreate(savedInstanceState);
-        //setTitle(R.string.mis_libros);
-        //setContentView(R.layout.activity_mis_libros);
+
+        resources = new RetrofiNetwork();
         View resp =  inflater.inflate(R.layout.activity_mis_libros, null);
         configureRecyclerView(resp);
-
+        misLibros();
         return resp;
 
     }
@@ -28,5 +40,38 @@ public class MisLibrosActivity extends Fragment {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void misLibros(){
+        executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                resources.misLibros(new RequestCallBack<List<Libro>>() {
+                    @Override
+                    public void onSuccess(List<Libro> response) {
+                        libros = response;
+                    }
+
+                    @Override
+                    public void onFailed(NetworkException e) {
+                        libros = null;
+                    }
+                });
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (libros != null) {
+                            recyclerView.setAdapter(new LibroAdapter(libros));
+                        }
+                    }
+                });
+            }
+
+        });
+
+
+
     }
 }

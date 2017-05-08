@@ -79,4 +79,16 @@ public class RetrofiNetwork {
         });
     }
 
+    public void misLibros(RequestCallBack<List<Libro>> requestCallBack){
+
+        Call<List<Libro>> call = libroSrvc.getMisLibros();
+        try {
+            Response<List<Libro>> execute = call.execute();
+            requestCallBack.onSuccess( execute.body() );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
