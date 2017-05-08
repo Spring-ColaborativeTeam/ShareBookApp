@@ -164,24 +164,10 @@ public class MenuActivity extends AppCompatActivity
 
     }
 
-    @Override
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            //uriImagen = data.getData().getPath();
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imagen.setImageBitmap(imageBitmap);
-        }  else if (REQUEST_IMAGE_GALLERY == requestCode) {
-            Uri uri = data.getData();
-            uriImagen = data.getData();
-            //try {
-               // Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-               // imagen.setImageBitmap(bitmap);
-            //} //catch (IOException e) {
-              //  e.printStackTrace();
-            //}
-        }
+
     }
 
 }
