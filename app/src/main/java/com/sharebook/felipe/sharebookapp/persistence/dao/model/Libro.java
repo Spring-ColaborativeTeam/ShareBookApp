@@ -9,29 +9,43 @@ import com.j256.ormlite.field.DatabaseField;
  */
 
 public class Libro extends BaseModel{
+
     @DatabaseField
-    String name ;
+    String nombre;
     @DatabaseField
-    String description;
+    String editorial;
     @DatabaseField
+    String id;
+
+
     String imageUrl;
     public Libro() {
+        imageUrl = "https://sharebookapp.herokuapp.com/libros/"+id+"/picture";
+        //System.out.println("El" +id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
-        return name;
+        return nombre;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nombre = name;
     }
 
     public String getDescription() {
-        return description;
+        return editorial;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String editorial) {
+        this.editorial = editorial;
     }
 
     public String getImageUrl() {
@@ -47,7 +61,7 @@ public class Libro extends BaseModel{
         StringBuilder sb = new StringBuilder();
         sb.append("id=").append(id);
         sb.append(", ").append("str=").append(id);
-        sb.append(", ").append("ms=").append(name);
+        sb.append(", ").append("ms=").append(nombre);
 
         //sb.append(", ").append("description=").append(description);
         return sb.toString();
