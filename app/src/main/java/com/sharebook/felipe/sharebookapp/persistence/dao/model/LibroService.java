@@ -18,7 +18,8 @@ public interface LibroService {
 
     @GET( "libros/disponibles/diego@sharebook.com" )
     Call<List<Libro>> getLibrosList( );
-    @POST("diego@sharebook.com")
+
+    @POST("libros/diego@sharebook.com")
     Call<Libro> addLibro(@Body Libro libro);
 
     @GET("mislibros/diego@sharebook.com")

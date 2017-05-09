@@ -93,11 +93,11 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
 
         MapsInitializer.initialize(view.getContext());
         mGoogleMap = googleMap;
-        LatLng location = new LatLng(4.7826755,-74.0447828);
+        LatLng location = new LatLng(4.782722, -74.043041);
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d("1","aunque seaaaaaaaaaaa");
 
-        CameraPosition Bogota = CameraPosition.builder().target(location).zoom(17).bearing(0).tilt(45).build();
+        CameraPosition Bogota = CameraPosition.builder().target(location).zoom(16).bearing(0).tilt(45).build();
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Bogota));
         mGoogleMap.setOnMarkerClickListener(this);
         traerLibrosRetrofit();
@@ -114,8 +114,8 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
         if(librosMarkers != null) {
 
             for (int i = 0; i < librosMarkers.size(); i++) {
-                Log.d("lolo","Encontreeeeeeeeeeeee libro");
-                LatLng location = new LatLng(4.7826755+i,-74.0447828);
+
+                LatLng location = new LatLng(librosMarkers.get(i).getLatitude(),librosMarkers.get(i).getLongitude());
                 MarkerOptions m = new MarkerOptions().position(location).title(librosMarkers.get(i).getName()).visible(true).icon(BitmapDescriptorFactory.fromResource(R.drawable.book2));
 
                 Marker l =mGoogleMap.addMarker(m);
@@ -135,6 +135,8 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
             textNombre.setText(libro.getName());
             final TextView textEdi = (TextView) view.findViewById(R.id.ediVentana);
             textEdi.setText(libro.getDescription());
+            final TextView textAutor = (TextView) view.findViewById(R.id.autorVentana);
+            textAutor.setText(libro.getAutor());
             final ImageView imageLibro = (ImageView) view.findViewById(R.id.imagenLibro);
             String base_tmp = "https://sharebookapp.herokuapp.com/libros/"+libro.getId()+"/picture";
             Picasso.with(view.getContext()).load(base_tmp).into(imageLibro);

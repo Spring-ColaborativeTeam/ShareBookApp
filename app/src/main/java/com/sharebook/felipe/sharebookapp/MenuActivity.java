@@ -16,15 +16,32 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.RequestCallBack;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,15 +56,18 @@ public class MenuActivity extends AppCompatActivity
     Button botonImagen;
     EditText mensaje;
     Button guardarBoton;
-    Uri uriImagen = null;
+    Boolean tomoFoto = false;
+    String uriImagen = null;
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
+    Bitmap imagenCamara;
+    private  RetrofiNetwork network;
+    private ExecutorService executorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,7 +79,7 @@ public class MenuActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         botonImagen=(Button)findViewById(R.id.buttonImagen);
-        imagen=(ImageView)findViewById(R.id.imageView);
+        imagen=(ImageView)findViewById(R.id.imagenCamara);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         fragmentManager = getFragmentManager();
@@ -101,6 +121,7 @@ public class MenuActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -110,6 +131,7 @@ public class MenuActivity extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.pub_libro) {
+            tomoFoto = false;
             setTitle("Publicar Libro");
             fragment = pubFra;
         } else if (id == R.id.map_fragment) {
@@ -139,23 +161,25 @@ public class MenuActivity extends AppCompatActivity
     }
 
     public void agregarFoto(View view){
-            final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
-            AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-            builder.setTitle("Add Photo");
+        final CharSequence[] options = {"Tomar Foto", "Galeria de fotos", "Cancelar"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+        builder.setTitle("Agregar Foto");
             builder.setItems(options, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int item) {
-                    if (options[item].equals("Take Photo")) {
+                    if (options[item].equals("Tomar Foto")) {
                         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                            tomoFoto = true;
                         }
-                    } else if (options[item].equals("Choose from Gallery")) {
+                    } else if (options[item].equals("Galeria de fotos")) {
                         Intent intent = new Intent();
                         intent.setType("image/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_IMAGE_GALLERY);
-                    } else if (options[item].equals("Cancel")) {
+                        tomoFoto = true;
+                    } else if (options[item].equals("Cancelar")) {
                         dialog.dismiss();
                     }
                 }
@@ -164,24 +188,66 @@ public class MenuActivity extends AppCompatActivity
 
     }
 
-    @Override
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        imagen = (ImageView) findViewById(R.id.imagenCamara);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            //uriImagen = data.getData().getPath();
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imagen.setImageBitmap(imageBitmap);
-        }  else if (REQUEST_IMAGE_GALLERY == requestCode) {
+            imagenCamara = (Bitmap) data.getExtras().get("data");
+            imagen.setImageBitmap(imagenCamara);
+
+        } else if (REQUEST_IMAGE_GALLERY == requestCode) {
             Uri uri = data.getData();
-            uriImagen = data.getData();
-            //try {
-               // Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-               // imagen.setImageBitmap(bitmap);
-            //} //catch (IOException e) {
-              //  e.printStackTrace();
-            //}
+
+            try {
+                imagenCamara = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                imagen.setImageBitmap(imagenCamara);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
+    public Bitmap getImagenCamara(){
+        return imagenCamara;
+    }
+
+    public void publicarLibro(View view){
+        if(tomoFoto) {
+
+
+            EditText nombreEdit = (EditText) findViewById(R.id.nombre);
+            String nombre = nombreEdit.getText().toString();
+            EditText editoEdit = (EditText) findViewById(R.id.editorial);
+            String editorial = editoEdit.getText().toString();
+            EditText autorEdit = (EditText) findViewById(R.id.autor);
+            String autor = autorEdit.getText().toString();
+            if(nombre != "" && autor != "" && editorial != ""){
+                Libro l = new Libro();
+                l.setId(nombre.trim()+autor.trim());
+                l.setName(nombre);
+                l.setDescription(editorial);
+                l.setAutor(autor);
+                l.setLatitude(new Float(4.7826755));
+                l.setLongitude(new Float(-74.0447828));
+                addLibroRetrofit(l);
+            }else{
+                Toast.makeText(this, "Debe completar todos los campos del libro.", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(this, "Debe tener una imagen del libro.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void addLibroRetrofit(final Libro libro){
+        network = new RetrofiNetwork();
+        executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new Runnable() {
+
+            @Override
+            public void run() {
+                network.addLibro(libro);
+            }
+        });
+    }
 }
