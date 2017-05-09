@@ -1,4 +1,4 @@
-package com.sharebook.felipe.sharebookapp;
+package com.sharebook.felipe.sharebookapp.activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -43,6 +43,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.internal.zzf;
+import com.sharebook.felipe.sharebookapp.R;
 import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;

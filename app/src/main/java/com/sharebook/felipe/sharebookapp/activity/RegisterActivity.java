@@ -1,4 +1,4 @@
-package com.sharebook.felipe.sharebookapp;
+package com.sharebook.felipe.sharebookapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.sharebook.felipe.sharebookapp.R;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Usuario;
 
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void cancelar (View view){
-        startActivity( new Intent(getBaseContext(), MainActivity.class ) );
+        startActivity( new Intent(getBaseContext(), LoginActivity.class ) );
 
     }
 
@@ -62,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         resources = new RetrofiNetwork();
         resources.registroUsuario(usuario);
 
-        startActivity( new Intent(getBaseContext(), MainActivity.class ) );
+        startActivity( new Intent(getBaseContext(), LoginActivity.class ) );
     }
 
 }

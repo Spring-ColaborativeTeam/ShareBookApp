@@ -1,4 +1,4 @@
-package com.sharebook.felipe.sharebookapp;
+package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.sharebook.felipe.sharebookapp.R;
 
 import java.io.IOException;
 

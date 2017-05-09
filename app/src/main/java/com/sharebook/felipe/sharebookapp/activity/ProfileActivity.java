@@ -1,9 +1,11 @@
-package com.sharebook.felipe.sharebookapp;
+package com.sharebook.felipe.sharebookapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.sharebook.felipe.sharebookapp.R;
 
 /**
  * Created by Felipe on 23/04/17.

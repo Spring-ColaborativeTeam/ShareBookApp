@@ -33,38 +33,35 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    //sdk facebook
 
-    //firebase core & firebase auth
-    //ORMLite
-    //RecyclerView
-    //Google maps
-
-    //sdk facebook
-    //firebase core & firebase auth
-    //ORMLite
-    //RecyclerView
-    //Google maps
-    //Android spring
-    //jwt token
 
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //sdk facebook
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-auth:9.6.1'
+    //firebase core & firebase auth
     compile 'com.android.support:design:25.3.1'
+    //ORMLite
     compile 'com.j256.ormlite:ormlite-android:5.0'
+    //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.0'
+    compile 'com.squareup:otto:1.3.8'
+    compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.android.support:cardview-v7:21.0.3'
+    //RecyclerView
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    //Google maps
     compile 'com.google.android.gms:play-services-maps:9.6.1'
     compile 'com.google.android.gms:play-services-location:9.6.1'
+    //Android spring
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.11'
-
+    //jwt
     compile 'com.auth0.android:jwtdecode:1.0.0'
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'

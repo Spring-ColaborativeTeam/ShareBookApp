@@ -1,4 +1,4 @@
-package com.sharebook.felipe.sharebookapp;
+package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -25,6 +25,7 @@ import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
+import com.sharebook.felipe.sharebookapp.R;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

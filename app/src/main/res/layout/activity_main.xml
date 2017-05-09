@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#d80027"
     android:padding="15dp"
-    tools:context="com.sharebook.felipe.sharebookapp.LoginActivity">
+    tools:context="com.sharebook.felipe.sharebookapp.activity.LoginActivity">
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
