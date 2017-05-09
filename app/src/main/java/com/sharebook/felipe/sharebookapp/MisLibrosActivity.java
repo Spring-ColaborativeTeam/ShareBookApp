@@ -2,6 +2,7 @@ package com.sharebook.felipe.sharebookapp;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,15 +26,18 @@ public class MisLibrosActivity extends Fragment {
     private RecyclerView recyclerView;
     private List<Libro> libros;
 
-    public View onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         resources = new RetrofiNetwork();
         View resp =  inflater.inflate(R.layout.activity_mis_libros, null);
         configureRecyclerView(resp);
         misLibros();
         return resp;
-
     }
+
+    
+
 
     private void configureRecyclerView(View v) {
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView1);
