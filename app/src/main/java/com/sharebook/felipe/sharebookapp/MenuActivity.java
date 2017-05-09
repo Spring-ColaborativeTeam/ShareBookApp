@@ -212,7 +212,7 @@ public class MenuActivity extends AppCompatActivity
         return imagenCamara;
     }
 
-    public void publicarLibro(View view){
+    public void publicarLibro(View view) throws InterruptedException {
         if(tomoFoto) {
 
 
@@ -231,6 +231,14 @@ public class MenuActivity extends AppCompatActivity
                 l.setLatitude(new Float(4.7826755));
                 l.setLongitude(new Float(-74.0447828));
                 addLibroRetrofit(l);
+                Thread.sleep(1000);
+                Fragment fragment = null;
+                fragment = new MisLibrosActivity();
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.mainFrame, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }else{
                 Toast.makeText(this, "Debe completar todos los campos del libro.", Toast.LENGTH_SHORT).show();
             }
@@ -247,6 +255,7 @@ public class MenuActivity extends AppCompatActivity
             @Override
             public void run() {
                 network.addLibro(libro);
+
             }
         });
     }
