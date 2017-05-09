@@ -1,4 +1,4 @@
-package com.sharebook.felipe.sharebookapp;
+package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -16,29 +16,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
+import com.sharebook.felipe.sharebookapp.R;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
-import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
-import com.sharebook.felipe.sharebookapp.persistence.dao.model.RequestCallBack;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
