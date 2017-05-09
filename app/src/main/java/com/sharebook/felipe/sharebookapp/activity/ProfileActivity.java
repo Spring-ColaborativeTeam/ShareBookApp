@@ -1,4 +1,4 @@
-package com.sharebook.felipe.sharebookapp;
+package com.sharebook.felipe.sharebookapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

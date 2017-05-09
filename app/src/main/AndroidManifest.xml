@@ -24,18 +24,18 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".activity.ProfileActivity" />
         <!-- <activity android:name=".LibrosDispActivity" /> -->
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".activity.RegisterActivity" />
         <activity
-            android:name=".MenuActivity"
+            android:name=".activity.MenuActivity"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme" />
         <!--
@@ -53,8 +53,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD6oHftR1lKI2ZuI6tAYXbZZEDY69_OXm4" />
 
-        <activity android:name=".SolicitudAcivity"></activity>
-        <activity android:name=".MisLibrosActivity"></activity>
+        <activity android:name=".activity.SolicitudAcivity"></activity>
+        <activity android:name=".activity.MisLibrosActivity"></activity>
     </application>
 
 </manifest>
