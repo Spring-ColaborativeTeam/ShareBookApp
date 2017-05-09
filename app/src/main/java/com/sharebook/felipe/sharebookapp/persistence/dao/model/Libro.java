@@ -2,6 +2,7 @@ package com.sharebook.felipe.sharebookapp.persistence.dao.model;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.sql.Blob;
 
 
 /**
@@ -16,6 +17,18 @@ public class Libro extends BaseModel{
     String editorial;
     @DatabaseField
     String id;
+    @DatabaseField
+    String autor;
+    @DatabaseField
+    Blob imagen;
+    @DatabaseField
+    Float latitude;
+    @DatabaseField
+    Float longitude;
+    @DatabaseField
+    Usuario usuario;
+
+
 
 
     String imageUrl;
@@ -56,6 +69,45 @@ public class Libro extends BaseModel{
         this.imageUrl = imageUrl;
     }
 
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public Blob getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Blob imagen) {
+        this.imagen = imagen;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

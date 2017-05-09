@@ -38,8 +38,7 @@
             tools:layout_editor_absoluteY="55dp"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp" />
+        android:layout_alignParentStart="true" />
 
 
 
@@ -54,10 +53,10 @@
             android:textColor="@color/cardview_light_background"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="139dp"
-            android:layout_below="@+id/spinner"
+            android:layout_below="@+id/textView6"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="13dp" />
+            android:layout_marginTop="49dp" />
 
         <EditText
             android:id="@+id/autor"
@@ -87,7 +86,7 @@
             android:textColor="@color/cardview_light_background"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="187dp"
-            android:layout_below="@+id/autor"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -111,7 +110,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imagenCamara"
         android:layout_width="189dp"
 
         android:layout_height="189dp"
@@ -128,17 +127,23 @@
 
 
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="339dp"
-            android:layout_height="40dp"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="104dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/textView6"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+    <EditText
+        android:id="@+id/editorial"
+        android:layout_width="336dp"
+        android:layout_height="50dp"
+        android:textSize="24sp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        android:textColorLink="@color/cardview_light_background"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="154dp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        android:layout_marginBottom="10dp"
+        />
 
         <TextView
             android:id="@+id/textView6"
@@ -152,16 +157,16 @@
             tools:layout_editor_absoluteY="89dp"
             android:layout_below="@+id/nombre"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="11dp"/>
+            android:layout_alignParentStart="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/agregar"
         app:fabSize="normal"
+        android:onClick="publicarLibro"
         android:layout_marginBottom="22dp"
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/floatButton"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/autor"
         android:layout_alignEnd="@+id/autor" />
