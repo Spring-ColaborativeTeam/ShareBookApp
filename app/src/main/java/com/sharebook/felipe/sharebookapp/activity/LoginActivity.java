@@ -43,9 +43,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity( new Intent(getBaseContext(), MenuActivity.class ) );
             }
         });
-
-
-
     }
 
     public void registrar (View view){
