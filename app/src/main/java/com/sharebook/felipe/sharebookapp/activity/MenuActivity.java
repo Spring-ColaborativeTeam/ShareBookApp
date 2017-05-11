@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,11 +29,17 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.sharebook.felipe.sharebookapp.R;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.LibroService;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
+import com.sharebook.felipe.sharebookapp.security.model.Logout;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MenuActivity extends AppCompatActivity
@@ -55,6 +62,7 @@ public class MenuActivity extends AppCompatActivity
     Bitmap imagenCamara;
     private  RetrofiNetwork network;
     private ExecutorService executorService;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,10 @@ public class MenuActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //TextView email = (TextView) findViewById(R.id.user_email);
+        //SharedPreferences pref = getApplicationContext().getSharedPreferences("userDetails", 0);
+        //email.setText(pref.getString("username", null));
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -140,6 +152,9 @@ public class MenuActivity extends AppCompatActivity
         else if(id == R.id.solicitud) {
             setTitle("Solicitudes");
             fragment = new SolicitudAcivity();
+        }
+        else if(id == R.id.logout) {
+            logout();
         }
 
 
@@ -250,5 +265,22 @@ public class MenuActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    private void logout(){
+        LibroService service = RetrofiNetwork.createService(LibroService.class);
+        Call<Logout> call = service.logout();
+        call.enqueue(new Callback<Logout>() {
+            @Override
+            public void onResponse(Call<Logout> call, Response<Logout> response) {
+                startActivity( new Intent(getBaseContext(), LoginActivity.class ) );
+            }
+
+            @Override
+            public void onFailure(Call<Logout> call, Throwable t) {
+                startActivity( new Intent(getBaseContext(), LoginActivity.class ) );
+            }
+        });
+
     }
 }

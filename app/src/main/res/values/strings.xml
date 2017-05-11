@@ -33,4 +33,10 @@
         <item>Otra Editorial</item>
     </string-array>
 
+    <string name="logout">Cerrar Sesión</string>
+    <string name="solicitud">Solicitudes</string>
+    <string name="libros_dispo">Libros Disponibles</string>
+    <string name="publicar">Publicar Libro</string>
+
+
 </resources>

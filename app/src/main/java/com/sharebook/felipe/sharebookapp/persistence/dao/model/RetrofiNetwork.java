@@ -1,10 +1,15 @@
 package com.sharebook.felipe.sharebookapp.persistence.dao.model;
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.sharebook.felipe.sharebookapp.security.AuthenticationInterceptor;
 
 import java.io.IOException;
 import java.util.List;
 
+import okhttp3.Credentials;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,16 +21,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofiNetwork {
-    //private static final String BASE_URL = "https://sharebookapp.herokuapp.com/libros/disponibles/";
+
     private static final String BASE_URL = "https://sharebookapp.herokuapp.com/";
     public static final String BASE_URLIMG ="https://sharebookapp.herokuapp.com/libros/1/picture";
 
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+    private static Retrofit.Builder builder =
+            new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create());
+
+    private static Retrofit retrofit = builder.build();
+
+
     private LibroService libroSrvc;
 
-    public RetrofiNetwork()
-    {
+    public RetrofiNetwork(){
+
         Retrofit retrofit =
-                new Retrofit.Builder().baseUrl( BASE_URL ).addConverterFactory( GsonConverterFactory.create() ).build();
+                new Retrofit.Builder().baseUrl( BASE_URL )
+                        .addConverterFactory( GsonConverterFactory.create() )
+                        .build();
         libroSrvc = retrofit.create(LibroService.class);
     }
 
@@ -91,4 +108,37 @@ public class RetrofiNetwork {
 
     }
 
+    public static <S> S createService(Class<S> serviceClass) {
+        return createService(serviceClass, null, null);
+    }
+
+    public static <S> S createService(
+            Class<S> serviceClass, String username, String password) {
+        if (!TextUtils.isEmpty(username)
+                && !TextUtils.isEmpty(password)) {
+
+            String authToken = Credentials.basic(username, password);
+            return createService(serviceClass, authToken);
+        }
+
+        return createService(serviceClass, null, null);
+    }
+
+    public static <S> S createService(
+            Class<S> serviceClass, final String authToken) {
+        if (!TextUtils.isEmpty(authToken)) {
+            AuthenticationInterceptor interceptor =
+                    new AuthenticationInterceptor(authToken);
+
+            if (!httpClient.interceptors().contains(interceptor)) {
+
+                httpClient.addInterceptor(interceptor);
+
+                builder.client(httpClient.build());
+                retrofit = builder.build();
+            }
+        }
+
+        return retrofit.create(serviceClass);
+    }
 }

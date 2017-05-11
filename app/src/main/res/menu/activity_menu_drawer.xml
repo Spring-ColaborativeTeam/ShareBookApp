@@ -9,19 +9,23 @@
         <item
             android:id="@+id/pub_libro"
             android:icon="@drawable/book_plus"
-            android:title="Publicar Libro" />
+            android:title="@string/publicar" />
         <item
             android:id="@+id/dis_libro"
             android:icon="@drawable/book_open_page_variant"
-            android:title="Libros Disponibles" />
+            android:title="@string/libros_dispo" />
         <item
             android:id="@+id/mis_libro"
             android:icon="@drawable/library_books"
-            android:title="Mis Libros" />
+            android:title="@string/mis_libros" />
         <item
             android:id="@+id/solicitud"
             android:icon="@drawable/tag_text_outline"
-            android:title="Solicitudes" />
+            android:title="@string/solicitud" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="@string/logout" />
 
     </group>
 

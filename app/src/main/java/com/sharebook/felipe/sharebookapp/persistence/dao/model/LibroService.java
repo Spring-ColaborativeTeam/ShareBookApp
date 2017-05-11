@@ -1,5 +1,9 @@
 package com.sharebook.felipe.sharebookapp.persistence.dao.model;
 
+import com.sharebook.felipe.sharebookapp.security.model.Logout;
+import com.sharebook.felipe.sharebookapp.security.model.ServerRequest;
+import com.sharebook.felipe.sharebookapp.security.model.ServerResponse;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -15,6 +19,12 @@ public interface LibroService {
 
     @POST("registro")
     Call<Usuario> createUser(@Body Usuario usuario);
+
+    @POST("/api/auth/login")
+    Call<ServerResponse> login(@Body ServerRequest request);
+
+    @GET("/api/auth/logout")
+    Call<Logout> logout();
 
     @GET( "libros/disponibles/diego@sharebook.com" )
     Call<List<Libro>> getLibrosList( );
