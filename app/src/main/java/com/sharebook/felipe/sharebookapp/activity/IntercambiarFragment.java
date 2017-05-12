@@ -8,8 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.sharebook.felipe.sharebookapp.R;
+import com.sharebook.felipe.sharebookapp.adapter.IntercambiarLibroAdapter;
 import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
 import com.sharebook.felipe.sharebookapp.adapter.MisLibrosAdapter;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
@@ -21,29 +24,31 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MisLibrosActivity extends Fragment {
+/**
+ * Created by Diego on 11/05/2017.
+ */
+
+public class IntercambiarFragment extends Fragment {
 
     private RetrofiNetwork resources;
     private ExecutorService executorService;
     private RecyclerView recyclerView;
     private List<Libro> libros;
-    MisLibrosAdapter adapter;
+
+    IntercambiarLibroAdapter adapter;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         resources = new RetrofiNetwork();
-        View resp =  inflater.inflate(R.layout.activity_mis_libros, null);
+        View resp =  inflater.inflate(R.layout.activity_intercambiar, null);
         configureRecyclerView(resp);
         misLibros();
         return resp;
     }
 
-    
-
-
     private void configureRecyclerView(View v) {
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView1);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerViewIntercambiar);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -70,7 +75,7 @@ public class MisLibrosActivity extends Fragment {
                     @Override
                     public void run() {
                         if (libros != null) {
-                            adapter = new MisLibrosAdapter(libros);
+                            adapter = new IntercambiarLibroAdapter(libros);
                             recyclerView.setAdapter(adapter);
                         }
                     }
@@ -78,8 +83,7 @@ public class MisLibrosActivity extends Fragment {
             }
 
         });
-
-
-
     }
+
+
 }

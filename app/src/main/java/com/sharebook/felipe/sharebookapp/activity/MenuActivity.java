@@ -46,6 +46,8 @@ public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     PublicarFragment pubFra = new PublicarFragment();
+    IntercambiarFragment intFra = new IntercambiarFragment();
+    MisLibrosActivity misLibrosActivity = new MisLibrosActivity();
     FragmentManager fragmentManager;
     FragmentTransaction transaction;
     MapsActivity mapFra = new MapsActivity();
@@ -147,7 +149,7 @@ public class MenuActivity extends AppCompatActivity
         }
         else if (id == R.id.mis_libro) {
             setTitle("Mis Libros");
-            fragment = new MisLibrosActivity();
+            fragment = misLibrosActivity;
         }
         else if(id == R.id.solicitud) {
             setTitle("Solicitudes");
@@ -240,9 +242,13 @@ public class MenuActivity extends AppCompatActivity
                 addLibroRetrofit(l);
                 Thread.sleep(1000);
                 Fragment fragment = null;
-                fragment = new MisLibrosActivity();
+
+                fragment = misLibrosActivity;
+
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.mainFrame, fragment);
+                misLibrosActivity.adapter.imagen = imagenCamara;
+                misLibrosActivity.adapter.idLibroPublicar = l.getName();
                 transaction.addToBackStack(null);
                 transaction.commit();
 
@@ -283,4 +289,24 @@ public class MenuActivity extends AppCompatActivity
         });
 
     }
+
+    public void intercambiarLibro(View view){
+        Fragment fragment = null;
+        intFra = new IntercambiarFragment();
+        fragment = intFra;
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.mainFrame, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void crearSolicitud(View view){
+        Libro libroSelec = intFra.adapter.libroSelected;
+        if(libroSelec != null) {
+            Toast.makeText(this, "Seleciono " + libroSelec.getName(), Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "No ha seleccionado un libro para intercambiar", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

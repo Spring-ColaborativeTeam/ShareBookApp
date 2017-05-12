@@ -27,7 +27,9 @@ import java.util.concurrent.Executors;
  */
 
 public class LibrosDispActivity extends Fragment {
+    LibroAdapter adapter;
     private RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +73,8 @@ public class LibrosDispActivity extends Fragment {
                         @Override
                         public void run() {
                             if (libros != null) {
-                                recyclerView.setAdapter(new LibroAdapter(libros));
+                                adapter = new LibroAdapter(libros);
+                                recyclerView.setAdapter(adapter);
                             }
                         }
                     });

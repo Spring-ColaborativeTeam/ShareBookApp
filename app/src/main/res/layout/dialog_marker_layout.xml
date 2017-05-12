@@ -95,6 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Intercambiar"
+        android:onClick="intercambiarLibro"
         android:layout_below="@+id/autorVentana"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

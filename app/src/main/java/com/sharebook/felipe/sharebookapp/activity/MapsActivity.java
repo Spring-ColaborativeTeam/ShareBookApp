@@ -1,5 +1,6 @@
 package com.sharebook.felipe.sharebookapp.activity;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -12,7 +13,10 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +24,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +41,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -56,10 +62,14 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
+import static android.content.Context.LOCATION_SERVICE;
 
-    private  RetrofiNetwork network;
-    private  ExecutorService executorService;
+public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
+        GoogleMap.OnMyLocationButtonClickListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
+
+    private RetrofiNetwork network;
+    private ExecutorService executorService;
     private List<Libro> libros;
     //DataBarSingleton dbs = DataBarSingleton.getInstance();
     GoogleMap mGoogleMap;
@@ -68,6 +78,13 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
     private List<Libro> librosMarkers = new LinkedList<Libro>();
     LibroAdapter libroAdapter;
 
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    /**
+     * Flag indicating whether a requested permission has been denied after returning in
+     * {@link #onRequestPermissionsResult(int, String[], int[])}.
+     */
+    private boolean mPermissionDenied = false;
 
     @Nullable
     @Override
@@ -82,7 +99,7 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
         super.onViewCreated(view, savedInstanceState);
         mapView = (MapView) view.findViewById(R.id.map);
 
-        if(mapView != null){
+        if (mapView != null) {
             mapView.onCreate(null);
             mapView.onResume();
             mapView.getMapAsync(this);
@@ -96,19 +113,26 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
         mGoogleMap = googleMap;
         LatLng location = new LatLng(4.782722, -74.043041);
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        Log.d("1","aunque seaaaaaaaaaaa");
+        Log.d("1", "aunque seaaaaaaaaaaa");
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mGoogleMap.setMyLocationEnabled(true);}
+      /*  LocationManager locManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+        List<String> providersList = locManager.getAllProviders();
+        LocationProvider provider = locManager.getProvider(providersList.get(0));
+        int precision = provider.getAccuracy();
+        Criteria req = new Criteria();
+        req.setAccuracy(Criteria.ACCURACY_FINE);*/
 
         CameraPosition Bogota = CameraPosition.builder().target(location).zoom(16).bearing(0).tilt(45).build();
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Bogota));
         mGoogleMap.setOnMarkerClickListener(this);
-        traerLibrosRetrofit();
-        /*try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
 
-        }*/
+        traerLibrosRetrofit();
 
     }
+
+
 
     private void addMarkers(GoogleMap mGoogleMap){
 
@@ -205,6 +229,15 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
         vectorDrawable.draw(canvas);
         return bitmap;
     }
+
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        return false;
+    }
+
+
+
 
 
 }
