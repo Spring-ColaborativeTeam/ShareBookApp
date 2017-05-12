@@ -37,6 +37,7 @@ public class LibrosDispActivity extends Fragment {
         View resp =  inflater.inflate(R.layout.activity_lisdisp, null);
         configureRecyclerView(resp);
         ImplementadordeRetrofit bkg = new ImplementadordeRetrofit();
+
         return resp;
     }
 

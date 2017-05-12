@@ -11,19 +11,19 @@
 
     <style name="ActionBarThemeOverlay" parent="">
 
-        <item name="colorControlNormal">#d80027</item>
-        <item name="colorControlHighlight">#d80027</item>
+        <item name="colorControlNormal">#0D7D83</item>
+        <item name="colorControlHighlight">#0D7D83</item>
     </style>
 
 
     <style name="ThemeToolbar" parent="Theme.AppCompat.Light">
 
         <!-- navigation icon color -->
-        <item name="colorControlNormal">#d80027</item>
+        <item name="colorControlNormal">#0D7D83</item>
 
-        <item name="colorPrimaryDark">#d80027</item>
+        <item name="colorPrimaryDark">#0D7D83</item>
         <!-- color of the menu overflow icon -->
-        <item name="android:textColorSecondary">#d80027</item>
+        <item name="android:textColorSecondary">#0D7D83</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

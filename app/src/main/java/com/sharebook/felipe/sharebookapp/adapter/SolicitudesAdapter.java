@@ -25,8 +25,8 @@ import java.util.List;
  * Created by Diego on 25/04/17.
  */
 
-public class IntercambiarLibroAdapter extends RecyclerView.Adapter<IntercambiarLibroAdapter.ViewHolder> implements View.OnClickListener{
-    private final List<Libro> publicacions;
+public class SolicitudesAdapter extends RecyclerView.Adapter<SolicitudesAdapter.ViewHolder> implements View.OnClickListener{
+    private final List<List<Libro>> publicacions;
     private Context context;
     private CardView cardView;
     private CardView cardViewAnterior;
@@ -35,13 +35,13 @@ public class IntercambiarLibroAdapter extends RecyclerView.Adapter<IntercambiarL
     boolean selec = false;
 
 
-    public IntercambiarLibroAdapter(List<Libro> publicacions) {
+    public SolicitudesAdapter(List<List<Libro>> publicacions) {
         this.publicacions = publicacions;
     }
     @Override
-    public IntercambiarLibroAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SolicitudesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.row_intercambiar, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_solicitudes, parent, false);
 
         return new ViewHolder(view);
     }
@@ -87,16 +87,23 @@ public class IntercambiarLibroAdapter extends RecyclerView.Adapter<IntercambiarL
     }
 
     @Override
-    public void onBindViewHolder(IntercambiarLibroAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(SolicitudesAdapter.ViewHolder viewHolder, int position) {
 
-        Libro publi = publicacions.get(position);
-        viewHolder.name.setText(publi.getName());
-        viewHolder.description.setText(publi.getDescription());
-        String base_tmp = "https://sharebookapp.herokuapp.com/libros/"+publi.getId()+"/picture";
-        System.out.println("id"+publi.getId()+ "URL"+ publi.getImageUrl());
+        List<Libro> publi = publicacions.get(position);
+        Libro libro1 = publi.get(0);
+        Libro libro2 = publi.get(1);
+        viewHolder.name.setText(libro1.getName());
+        viewHolder.description.setText(libro1.getDescription());
+        String base_tmp = "https://sharebookapp.herokuapp.com/libros/"+libro1.getId()+"/picture";
+        //System.out.println("id"+publi.getId()+ "URL"+ publi.getImageUrl());
         Picasso.with(context).load(base_tmp).into(viewHolder.logo);
+        viewHolder.name2.setText(libro2.getName());
+        viewHolder.description2.setText(libro2.getDescription());
+        String base_tmp2 = "https://sharebookapp.herokuapp.com/libros/"+libro2.getId()+"/picture";
+        //System.out.println("id"+publi.getId()+ "URL"+ publi.getImageUrl());
+        Picasso.with(context).load(base_tmp2).into(viewHolder.logo2);
         viewHolder.itemView.setSelected(focusedItem == position);
-        libroSelected = publi;
+        //libroSelected = publi;
         if(selec){
             cardView.setCardBackgroundColor(viewHolder.itemView.isSelected() ? Color.LTGRAY : Color.WHITE);
         }
@@ -118,8 +125,8 @@ public class IntercambiarLibroAdapter extends RecyclerView.Adapter<IntercambiarL
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, description;
-        ImageView logo;
+        TextView name, description, name2, description2;
+        ImageView logo, logo2;
 
 
         public ViewHolder(View view) {
@@ -127,6 +134,9 @@ public class IntercambiarLibroAdapter extends RecyclerView.Adapter<IntercambiarL
             name = (TextView) view.findViewById(R.id.name);
             description = (TextView) view.findViewById(R.id.description);
             logo = (ImageView) view.findViewById(R.id.logo);
+            name2 = (TextView) view.findViewById(R.id.name2);
+            description2 = (TextView) view.findViewById(R.id.description2);
+            logo2 = (ImageView) view.findViewById(R.id.logo2);
             cardView = (CardView) view.findViewById(R.id.card_view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

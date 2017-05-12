@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +50,7 @@ public class MenuActivity extends AppCompatActivity
     PublicarFragment pubFra = new PublicarFragment();
     IntercambiarFragment intFra = new IntercambiarFragment();
     MisLibrosActivity misLibrosActivity = new MisLibrosActivity();
+    LibrosDispActivity librosDispActivity = new LibrosDispActivity();
     FragmentManager fragmentManager;
     FragmentTransaction transaction;
     MapsActivity mapFra = new MapsActivity();
@@ -58,6 +60,7 @@ public class MenuActivity extends AppCompatActivity
     Button botonImagen;
     EditText mensaje;
     Button guardarBoton;
+    Libro libroSelec;
     Boolean tomoFoto = false;
     String uriImagen = null;
     private GoogleMap mMap;
@@ -86,8 +89,8 @@ public class MenuActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
-        TextView currentUser = (TextView) header.findViewById(R.id.currentUser);
-        currentUser.setText(pref.getString("username", null));
+        //TextView currentUser = (TextView) header.findViewById(R.id.currentUser);
+        //currentUser.setText(pref.getString("username", null));
         //
         fragmentManager = getFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -146,7 +149,7 @@ public class MenuActivity extends AppCompatActivity
             fragment = mapFra;
         } else if (id == R.id.dis_libro) {
             setTitle("Libros Disponibles");
-            fragment = new LibrosDispActivity();
+            fragment = librosDispActivity;
         }
         else if (id == R.id.mis_libro) {
             setTitle("Mis Libros");
@@ -291,14 +294,23 @@ public class MenuActivity extends AppCompatActivity
 
     }
 
+    public Libro getLibroSelected(){
+        return libroSelec;
+    }
+
     public void intercambiarLibro(View view){
+         libroSelec = librosDispActivity.adapter.libroSelected;
+        Log.d("1234234", "Vealo --------> "+libroSelec.getName());
         Fragment fragment = null;
         intFra = new IntercambiarFragment();
+        intFra.setLibroSelect(libroSelec);
         fragment = intFra;
         transaction = fragmentManager.beginTransaction();
+
         transaction.replace(R.id.mainFrame, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
     }
 
     public void crearSolicitud(View view){
