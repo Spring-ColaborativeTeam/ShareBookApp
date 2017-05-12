@@ -159,6 +159,10 @@ public class MenuActivity extends AppCompatActivity
         else if(id == R.id.logout) {
             logout();
         }
+        else if(id == R.id.buscar_libro) {
+            setTitle("Buscar Libros");
+            fragment = new BuscarActivity();
+        }
 
 
         transaction = fragmentManager.beginTransaction();

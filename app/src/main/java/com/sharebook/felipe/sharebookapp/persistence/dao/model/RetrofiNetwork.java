@@ -106,7 +106,14 @@ public class RetrofiNetwork {
             e.printStackTrace();
         }
 
-    }
+    }/*
+
+    public void buscar(RequestCallBack<List<Libro>> requestCallBack, String bookname){
+        Call<List<Libro>> call = libroSrvc.buscarLibros(bookname);
+
+        call.enqueue(new );
+    }*/
+
 
     public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);

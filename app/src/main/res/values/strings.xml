@@ -37,6 +37,9 @@
     <string name="solicitud">Solicitudes</string>
     <string name="libros_dispo">Libros Disponibles</string>
     <string name="publicar">Publicar Libro</string>
+    <string name="buscar">Buscar</string>
+    <string name="b_libros">Buscar Libros</string>
+    <string name="nombre">Nombre:</string>
 
 
 </resources>
