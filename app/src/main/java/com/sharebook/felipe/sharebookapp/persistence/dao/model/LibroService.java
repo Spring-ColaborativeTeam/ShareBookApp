@@ -33,6 +33,9 @@ public interface LibroService {
     @POST("libros/diego@sharebook.com")
     Call<Libro> addLibro(@Body Libro libro);
 
+    @POST("solicitud/{id1}/{id2}")
+    Call<Solicitud> addSolicitud(@Path("id1") String id1, @Path("id2") String id2, @Body Solicitud solicitud);
+
     @GET("mislibros/diego@sharebook.com")
     Call<List<Libro>> getMisLibros();
 

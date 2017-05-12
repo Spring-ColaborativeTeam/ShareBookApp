@@ -78,6 +78,22 @@ public class RetrofiNetwork {
     });
     }
 
+    public void addSolicitud(Solicitud s){
+        Call<Solicitud> call = libroSrvc.addSolicitud(s.getLibro1().getId(), s.getLibro2().getId(), s);
+        call.enqueue(new Callback<Solicitud>() {
+            @Override
+            public void onResponse(Call<Solicitud> call, Response<Solicitud> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Solicitud> call, Throwable t) {
+
+            }
+
+        });
+    }
+
     public void registroUsuario(Usuario usuario){
         Call<Usuario> call = libroSrvc.createUser(usuario);
         call.enqueue(new Callback<Usuario>() {

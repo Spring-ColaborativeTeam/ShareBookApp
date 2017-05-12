@@ -33,6 +33,7 @@ import com.sharebook.felipe.sharebookapp.R;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.LibroService;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RetrofiNetwork;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.Solicitud;
 import com.sharebook.felipe.sharebookapp.security.model.Logout;
 
 import java.io.IOException;
@@ -47,6 +48,7 @@ import retrofit2.Response;
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    boolean intercambiarLista = false;
     PublicarFragment pubFra = new PublicarFragment();
     IntercambiarFragment intFra = new IntercambiarFragment();
     MisLibrosActivity misLibrosActivity = new MisLibrosActivity();
@@ -69,6 +71,7 @@ public class MenuActivity extends AppCompatActivity
     private  RetrofiNetwork network;
     private ExecutorService executorService;
     private SharedPreferences sharedPreferences;
+    Libro libroIntercambio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -281,6 +284,19 @@ public class MenuActivity extends AppCompatActivity
         });
     }
 
+    public void addSolicitudRetrofit(final Solicitud solicitud){
+        network = new RetrofiNetwork();
+        executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new Runnable() {
+
+            @Override
+            public void run() {
+                network.addSolicitud(solicitud);
+
+            }
+        });
+    }
+
     private void logout(){
         LibroService service = RetrofiNetwork.createService(LibroService.class);
         Call<Logout> call = service.logout();
@@ -303,7 +319,9 @@ public class MenuActivity extends AppCompatActivity
     }
 
     public void intercambiarLibro(View view){
+        intercambiarLista = true;
          libroSelec = librosDispActivity.adapter.libroSelected;
+        libroIntercambio = libroSelec;
         Log.d("1234234", "Vealo --------> "+libroSelec.getName());
         Fragment fragment = null;
         intFra = new IntercambiarFragment();
@@ -317,10 +335,23 @@ public class MenuActivity extends AppCompatActivity
 
     }
 
+
+
     public void crearSolicitud(View view){
-        Libro libroSelec = intFra.adapter.libroSelected;
-        if(libroSelec != null) {
-            Toast.makeText(this, "Seleciono " + libroSelec.getName(), Toast.LENGTH_SHORT).show();
+
+        if(intercambiarLista){
+             libroSelec = intFra.adapter.libroSelected;
+        }else{
+            libroSelec = mapFra.intFra.adapter.libroSelected;
+            libroIntercambio = mapFra.libro;
+        }
+        if(libroSelec != null && libroIntercambio != null ) {
+            Solicitud s = new Solicitud();
+            s.setLibro1(libroSelec);
+            s.setLibro2(libroIntercambio);
+            addSolicitudRetrofit(s);
+            intercambiarLista = false;
+            Toast.makeText(this, "Seleciono " + libroSelec.getName()+ "--"+libroIntercambio.getName(), Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, "No ha seleccionado un libro para intercambiar", Toast.LENGTH_SHORT).show();
         }
