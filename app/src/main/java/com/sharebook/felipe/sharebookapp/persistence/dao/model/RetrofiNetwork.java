@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofiNetwork {
 
+
     private static final String BASE_URL = "https://sharebookapp.herokuapp.com/";
     public static final String BASE_URLIMG ="https://sharebookapp.herokuapp.com/libros/1/picture";
 
@@ -65,7 +66,7 @@ public class RetrofiNetwork {
     //aca tambien puede pensar en pasar loos parametros de un libro y luego construir el objeto
     // li = new libro(parametros)
     public void addLibro(Libro li){
-        Call<Libro> call = libroSrvc.addLibro(li);
+        Call<Libro> call = libroSrvc.addLibro(li, username);
         call.enqueue(new Callback<Libro>() {
             @Override
             public void onResponse(Call<Libro> call, Response<Libro> response) {

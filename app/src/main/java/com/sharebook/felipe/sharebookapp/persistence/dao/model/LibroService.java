@@ -30,8 +30,8 @@ public interface LibroService {
     @GET( "libros/disponibles/{username}" )
     Call<List<Libro>> getLibrosList(@Path("username") String username);
 
-    @POST("libros/diego@sharebook.com")
-    Call<Libro> addLibro(@Body Libro libro);
+    @POST("libros/{username}")
+    Call<Libro> addLibro(@Body Libro libro, @Path("username") String username);
 
     @GET("mislibros/{username}")
     Call<List<Libro>> getMisLibros(@Path("username") String username);
