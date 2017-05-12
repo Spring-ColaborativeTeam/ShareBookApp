@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -73,11 +74,7 @@ public class MenuActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //TextView email = (TextView) findViewById(R.id.user_email);
-        //SharedPreferences pref = getApplicationContext().getSharedPreferences("userDetails", 0);
-        //email.setText(pref.getString("username", null));
-
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("userDetails", 0);//Esta variable contiene el email que se obtiene con el token
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,6 +85,10 @@ public class MenuActivity extends AppCompatActivity
         imagen=(ImageView)findViewById(R.id.imagenCamara);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+        TextView currentUser = (TextView) header.findViewById(R.id.currentUser);
+        currentUser.setText(pref.getString("username", null));
+        //
         fragmentManager = getFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.mainFrame, mapFra);
