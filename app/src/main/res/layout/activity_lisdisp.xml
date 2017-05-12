@@ -25,4 +25,19 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
+    <Button
+        android:id="@+id/botonIntercambiarLibrosDisp"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:backgroundTint="#68C16F"
+        android:onClick="intercambiarLibro"
+        android:text="Intercambiar"
+        android:layout_below="@+id/recyclerView"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
 </RelativeLayout>
