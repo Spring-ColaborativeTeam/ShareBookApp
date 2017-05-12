@@ -1,105 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
->
+    android:background="#0D7D83"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imagenLibro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        android:scaleType="center"
-        android:src="@drawable/book"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
 
         android:layout_weight="0.32"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        android:src="@drawable/book" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textSize="20sp"
-        android:text="Nombre: "
-        android:textColor="#d80027"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/imagenLibro"/>
+        android:layout_below="@+id/imagenLibro"
+        android:layout_centerVertical="true"
+        android:text="Nombre: "
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/nombreVentana"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textSize="20sp"
-        android:gravity="right"
-        android:layout_below="@+id/textView9"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
 
+        android:layout_below="@+id/textView9"
+        android:gravity="center"
         android:text=""
-        android:textColor="#d80027" />
+        android:textColor="#d80027"
+        android:textSize="20sp" />
 
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:textSize="20sp"
-        android:text="Editorial:"
-        android:textColor="#d80027"
         android:layout_below="@+id/nombreVentana"
-     />
+        android:text="Editorial:"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/ediVentana"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textSize="20sp"
-        android:gravity="right"
         android:layout_below="@+id/textView10"
+        android:gravity="center"
         android:text=""
         android:textColor="#d80027"
-        />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textSize="20sp"
-        android:text="Autor: "
-        android:textColor="#d80027"
-        android:layout_below="@+id/ediVentana"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ediVentana"
+        android:text="Autor: "
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
 
     <TextView
         android:id="@+id/autorVentana"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textSize="20sp"
-        android:gravity="right"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView11"
+        android:gravity="center"
         android:text=""
-        android:textColor="#d80027"/>
-
+        android:textColor="#d80027"
+        android:textSize="20sp" />
 
 
     <Button
         android:id="@+id/button5"
         style="@style/Widget.AppCompat.Button"
-        android:backgroundTint="@android:color/background_light"
-        android:textSize="17sp"
-        android:textColor="@android:color/holo_red_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Intercambiar"
-        android:onClick="intercambiarLibro"
-        android:layout_below="@+id/autorVentana"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/autorVentana"
+        android:backgroundTint="#68C170"
+        android:onClick="intercambiarLibro"
+        android:text="Intercambiar"
+        android:textColor="@android:color/white"
+        android:textSize="17sp" />
 
 
 </RelativeLayout>

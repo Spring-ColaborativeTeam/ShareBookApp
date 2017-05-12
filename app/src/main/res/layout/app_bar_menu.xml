@@ -13,7 +13,7 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:textColor="#d80027"
+            android:textColor="#0D7D83"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             theme="@style/ThemeToolbar"/>

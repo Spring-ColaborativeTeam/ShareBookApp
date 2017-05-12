@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark"
+    android:background="#0D7D83"
     tools:context="com.sharebook.felipe.sharebookapp.activity.SolicitudAcivity">
 
     <TextView
@@ -17,7 +17,7 @@
         android:text="Solicitudes"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/cardview_light_background"
-        android:textStyle="bold|italic"
+        android:textStyle="italic"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintLeft_creator="1"

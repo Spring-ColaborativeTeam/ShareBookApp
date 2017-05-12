@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark"
+    android:background="#0D7D83"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.sharebook.felipe.sharebookapp.activity.MenuActivity"
     tools:showIn="@layout/app_bar_menu">
@@ -18,9 +18,8 @@
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/map"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            />
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 </LinearLayout>

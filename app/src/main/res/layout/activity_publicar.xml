@@ -4,109 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark"
-    android:padding="15dp"
-    >
+    android:background="#0D7D83"
+    android:padding="12dp">
 
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre:"
-        android:textSize="27sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/cardview_light_background"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="32dp"
-
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <EditText
-            android:id="@+id/nombre"
-            android:layout_width="338dp"
-            android:layout_height="50dp"
-            android:textSize="24sp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="@color/cardview_light_background"
-            android:textColorHighlight="@color/cardview_light_background"
-            android:textColorHint="@color/cardview_light_background"
-            android:textColorLink="@color/cardview_light_background"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="55dp"
-        android:layout_below="@+id/textView5"
+        android:id="@+id/nombre"
+        android:layout_width="338dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView5"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHighlight="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
+        android:textColorLink="@color/cardview_light_background"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="55dp" />
 
 
+    <EditText
+        android:id="@+id/autor"
+        android:layout_width="336dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/editorial"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/editorial"
+        android:layout_below="@+id/editorial"
+        android:layout_marginTop="11dp"
+        android:ems="10"
+        android:hint="Autor"
+        android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
+        android:textColorLink="@color/cardview_light_background"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="154dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/autor"
+        android:text="Imagen"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="187dp" />
 
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="27sp"
-            android:text="Autor:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/cardview_light_background"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="139dp"
-            android:layout_below="@+id/textView6"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="49dp" />
-
-        <EditText
-            android:id="@+id/autor"
-            android:layout_width="336dp"
-            android:layout_height="50dp"
-            android:textSize="24sp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="@color/cardview_light_background"
-            android:textColorLink="@color/cardview_light_background"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="154dp"
-            android:layout_below="@+id/textView8"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-
-            android:layout_marginBottom="10dp"
-            />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="27sp"
-            android:text="Imagen:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/cardview_light_background"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="187dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-
-        <Button
-            android:id="@+id/buttonImagen"
-            android:layout_width="338dp"
-            android:layout_height="48dp"
-            android:background="@android:color/background_light"
-            android:onClick="agregarFoto"
-            android:text="Agregar foto"
-            android:textColor="@android:color/holo_red_dark"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="205dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView4"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+    <Button
+        android:id="@+id/buttonImagen"
+        android:layout_width="338dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="10dp"
+        android:background="#68C16F"
+        android:onClick="agregarFoto"
+        android:text="Agregar foto"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="205dp" />
 
 
     <ImageView
@@ -114,62 +89,49 @@
         android:layout_width="189dp"
 
         android:layout_height="189dp"
+        android:layout_alignEnd="@+id/floatButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/floatButton"
+        android:layout_below="@+id/buttonImagen"
+        android:layout_marginTop="18dp"
         android:gravity="center"
         app:srcCompat="@drawable/addlibro"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="259dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp"
-        android:layout_below="@+id/buttonImagen" />
-
+        tools:layout_editor_absoluteY="259dp" />
 
 
     <EditText
         android:id="@+id/editorial"
         android:layout_width="336dp"
         android:layout_height="50dp"
-        android:textSize="24sp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/cardview_light_background"
-        android:textColorLink="@color/cardview_light_background"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="154dp"
-        android:layout_below="@+id/textView6"
+        android:layout_alignEnd="@+id/nombre"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-
-        android:layout_marginBottom="10dp"
-        />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="27sp"
-            android:text="Editorial:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/cardview_light_background"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="89dp"
-            android:layout_below="@+id/nombre"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        android:layout_alignRight="@+id/nombre"
+        android:layout_below="@+id/nombre"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Editorial"
+        android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
+        android:textColorLink="@color/cardview_light_background"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="154dp" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/agregar"
-        app:fabSize="normal"
-        android:onClick="publicarLibro"
-        android:layout_marginBottom="22dp"
-        android:id="@+id/floatButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/autor"
-        android:layout_alignEnd="@+id/autor" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:onClick="publicarLibro"
+        android:src="@drawable/add"
+        app:backgroundTint="#3B5441"
+        app:fabSize="normal" />
 
 
 </RelativeLayout>
