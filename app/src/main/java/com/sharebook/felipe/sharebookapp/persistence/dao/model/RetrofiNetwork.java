@@ -22,8 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofiNetwork {
 
-    //private static final String BASE_URL = "https://sharebookapp.herokuapp.com/";
-    private static final String BASE_URL = "http://192.168.0.28:8080/";
+    private static final String BASE_URL = "https://sharebookapp.herokuapp.com/";
     public static final String BASE_URLIMG ="https://sharebookapp.herokuapp.com/libros/1/picture";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
