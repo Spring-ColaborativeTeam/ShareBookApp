@@ -1,6 +1,7 @@
 package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sharebook.felipe.sharebookapp.R;
-import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
 import com.sharebook.felipe.sharebookapp.adapter.MisLibrosAdapter;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class MisLibrosActivity extends Fragment {
 
     private RetrofiNetwork resources;
@@ -28,19 +30,18 @@ public class MisLibrosActivity extends Fragment {
     private RecyclerView recyclerView;
     private List<Libro> libros;
     MisLibrosAdapter adapter;
+    private SharedPreferences pref;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
-        resources = new RetrofiNetwork();
+        pref = getApplicationContext().getSharedPreferences("userDetails", 0);
+        resources = new RetrofiNetwork(pref.getString("username", null));
         View resp =  inflater.inflate(R.layout.activity_mis_libros, null);
         configureRecyclerView(resp);
         misLibros();
         return resp;
     }
-
-    
-
 
     private void configureRecyclerView(View v) {
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView1);
@@ -78,8 +79,5 @@ public class MisLibrosActivity extends Fragment {
             }
 
         });
-
-
-
     }
 }

@@ -1,6 +1,7 @@
 package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.sharebook.felipe.sharebookapp.R;
 import com.sharebook.felipe.sharebookapp.adapter.IntercambiarLibroAdapter;
-import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
-import com.sharebook.felipe.sharebookapp.adapter.MisLibrosAdapter;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.RequestCallBack;
@@ -26,6 +27,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Diego on 11/05/2017.
@@ -37,6 +40,9 @@ public class IntercambiarFragment extends Fragment {
     private ExecutorService executorService;
     private RecyclerView recyclerView;
     private List<Libro> libros;
+
+    private SharedPreferences pref;
+
     Libro libro;
     TextView nombreEdit;
 
@@ -47,7 +53,8 @@ public class IntercambiarFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        resources = new RetrofiNetwork();
+        pref = getApplicationContext().getSharedPreferences("userDetails", 0);
+        resources = new RetrofiNetwork(pref.getString("username", null));
         View resp =  inflater.inflate(R.layout.activity_intercambiar, null);
         configureRecyclerView(resp);
         misLibros();

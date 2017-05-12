@@ -34,24 +34,26 @@ public class RetrofiNetwork {
                     .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit retrofit = builder.build();
+    private String username;
 
 
     private LibroService libroSrvc;
 
-    public RetrofiNetwork(){
+    public RetrofiNetwork(String email){
 
         Retrofit retrofit =
                 new Retrofit.Builder().baseUrl( BASE_URL )
                         .addConverterFactory( GsonConverterFactory.create() )
                         .build();
         libroSrvc = retrofit.create(LibroService.class);
+        username = email;
     }
 
     public void getLibros( RequestCallBack<List<Libro>> requestCallback )
     {
         try
         {
-            Call<List<Libro>> call = libroSrvc.getLibrosList( );
+            Call<List<Libro>> call = libroSrvc.getLibrosList(username);
             Response<List<Libro>> execute = call.execute();
             requestCallback.onSuccess( execute.body() );
         }
@@ -99,7 +101,7 @@ public class RetrofiNetwork {
 
     public void misLibros(RequestCallBack<List<Libro>> requestCallBack){
 
-        Call<List<Libro>> call = libroSrvc.getMisLibros();
+        Call<List<Libro>> call = libroSrvc.getMisLibros(username);
         try {
             Response<List<Libro>> execute = call.execute();
             requestCallBack.onSuccess( execute.body() );
@@ -107,15 +109,10 @@ public class RetrofiNetwork {
             e.printStackTrace();
         }
 
-    }/*
 
-    public void buscar(RequestCallBack<List<Libro>> requestCallBack, String bookname){
-        Call<List<Libro>> call = libroSrvc.buscarLibros(bookname);
+    }
 
-        call.enqueue(new );
-    }*/
-
-
+    }
     public void misSolicitudes(RequestCallBack<List<List<Libro>>> requestCallBack){
 
         Call<List<List<Libro>>> call = libroSrvc.getMisSolicitudes();
@@ -127,6 +124,7 @@ public class RetrofiNetwork {
         }
 
     }
+
 
     public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);
