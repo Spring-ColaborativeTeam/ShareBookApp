@@ -11,6 +11,10 @@
             android:icon="@drawable/book_plus"
             android:title="@string/publicar" />
         <item
+            android:id="@+id/buscar_libro"
+            android:icon="@drawable/magnify"
+            android:title="@string/buscar" />
+        <item
             android:id="@+id/dis_libro"
             android:icon="@drawable/book_open_page_variant"
             android:title="@string/libros_dispo" />

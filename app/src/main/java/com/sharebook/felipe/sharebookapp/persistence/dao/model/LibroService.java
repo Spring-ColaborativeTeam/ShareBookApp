@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Created by Felipe on 25/04/17.
@@ -34,6 +35,9 @@ public interface LibroService {
 
     @GET("mislibros/diego@sharebook.com")
     Call<List<Libro>> getMisLibros();
+
+    @GET("libros/buscar/{bookname}")
+    Call<List<Libro>> buscarLibros(@Path("bookname") String bookname);
 
     @GET("solicitud/usuario/diego@sharebook.com")
     Call<Solicitud> getSolicitudUsuario();

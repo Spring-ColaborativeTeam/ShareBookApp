@@ -53,8 +53,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD6oHftR1lKI2ZuI6tAYXbZZEDY69_OXm4" />
 
-        <activity android:name=".activity.SolicitudAcivity"></activity>
-        <activity android:name=".activity.MisLibrosActivity"></activity>
+        <activity android:name=".activity.SolicitudAcivity" />
+        <activity android:name=".activity.MisLibrosActivity" />
+        <activity android:name=".activity.BuscarActivity"></activity>
     </application>
 
 </manifest>
