@@ -283,4 +283,13 @@ public class MenuActivity extends AppCompatActivity
         });
 
     }
+
+    public void intercambiarLibro(View view){
+        Fragment fragment = null;
+        fragment = new IntercambiarFragment();
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.mainFrame, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }
