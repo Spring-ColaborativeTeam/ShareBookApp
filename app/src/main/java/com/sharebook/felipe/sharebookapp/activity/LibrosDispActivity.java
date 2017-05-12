@@ -40,6 +40,7 @@ public class LibrosDispActivity extends Fragment {
         configureRecyclerView(resp);
         pref = getApplicationContext().getSharedPreferences("userDetails", 0);
         ImplementadordeRetrofit bkg = new ImplementadordeRetrofit();
+
         return resp;
     }
 

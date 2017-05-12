@@ -41,7 +41,7 @@
         android:layout_below="@+id/textView9"
         android:gravity="center"
         android:text=""
-        android:textColor="#d80027"
+        android:textColor="@android:color/white"
         android:textSize="20sp" />
 
 
@@ -61,7 +61,7 @@
         android:layout_below="@+id/textView10"
         android:gravity="center"
         android:text=""
-        android:textColor="#d80027"
+        android:textColor="@android:color/white"
         android:textSize="20sp" />
 
     <TextView
@@ -85,7 +85,7 @@
         android:layout_below="@+id/textView11"
         android:gravity="center"
         android:text=""
-        android:textColor="#d80027"
+        android:textColor="@android:color/white"
         android:textSize="20sp" />
 
 
