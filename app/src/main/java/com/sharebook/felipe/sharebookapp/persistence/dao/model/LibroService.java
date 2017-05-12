@@ -27,20 +27,20 @@ public interface LibroService {
     @GET("/api/auth/logout")
     Call<Logout> logout();
 
-    @GET( "libros/disponibles/diego@sharebook.com" )
-    Call<List<Libro>> getLibrosList( );
+    @GET( "libros/disponibles/{username}" )
+    Call<List<Libro>> getLibrosList(@Path("username") String username);
 
     @POST("libros/diego@sharebook.com")
     Call<Libro> addLibro(@Body Libro libro);
 
-    @GET("mislibros/diego@sharebook.com")
-    Call<List<Libro>> getMisLibros();
+    @GET("mislibros/{username}")
+    Call<List<Libro>> getMisLibros(@Path("username") String username);
 
     @GET("libros/buscar/{bookname}")
     Call<List<Libro>> buscarLibros(@Path("bookname") String bookname);
 
-    @GET("solicitud/usuario/diego@sharebook.com")
-    Call<Solicitud> getSolicitudUsuario();
+    @GET("solicitud/usuario/{username}")
+    Call<Solicitud> getSolicitudUsuario(@Path("bookname") String bookname);
 
 
 }

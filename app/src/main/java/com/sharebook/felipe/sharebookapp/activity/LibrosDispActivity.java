@@ -1,10 +1,9 @@
 package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +21,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Created by Felipe on 25/04/17.
  */
@@ -29,6 +30,7 @@ import java.util.concurrent.Executors;
 public class LibrosDispActivity extends Fragment {
     LibroAdapter adapter;
     private RecyclerView recyclerView;
+    private SharedPreferences pref;
 
     @Nullable
     @Override
@@ -36,6 +38,7 @@ public class LibrosDispActivity extends Fragment {
         //configureRecyclerView();
         View resp =  inflater.inflate(R.layout.activity_lisdisp, null);
         configureRecyclerView(resp);
+        pref = getApplicationContext().getSharedPreferences("userDetails", 0);
         ImplementadordeRetrofit bkg = new ImplementadordeRetrofit();
         return resp;
     }
@@ -52,7 +55,7 @@ public class LibrosDispActivity extends Fragment {
         private List<Libro> libros;
 
         public ImplementadordeRetrofit() {
-            network = new RetrofiNetwork();
+            network = new RetrofiNetwork(pref.getString("username", null));
             executorService = Executors.newFixedThreadPool(1);
             executorService.execute(new Runnable() {
 

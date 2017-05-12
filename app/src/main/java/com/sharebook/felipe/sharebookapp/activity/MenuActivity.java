@@ -65,7 +65,7 @@ public class MenuActivity extends AppCompatActivity
     Bitmap imagenCamara;
     private  RetrofiNetwork network;
     private ExecutorService executorService;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class MenuActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("userDetails", 0);//Esta variable contiene el email que se obtiene con el token
+        pref = getApplicationContext().getSharedPreferences("userDetails", 0);//Esta variable contiene el email que se obtiene con el token
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -266,7 +266,7 @@ public class MenuActivity extends AppCompatActivity
     }
 
     public void addLibroRetrofit(final Libro libro){
-        network = new RetrofiNetwork();
+        network = new RetrofiNetwork(pref.getString("username", null));
         executorService = Executors.newFixedThreadPool(1);
         executorService.execute(new Runnable() {
 
