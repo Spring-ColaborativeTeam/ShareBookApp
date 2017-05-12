@@ -7,7 +7,6 @@ import com.sharebook.felipe.sharebookapp.security.AuthenticationInterceptor;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.ListResourceBundle;
 
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
@@ -23,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofiNetwork {
 
+
     private static final String BASE_URL = "https://sharebookapp.herokuapp.com/";
     public static final String BASE_URLIMG ="https://sharebookapp.herokuapp.com/libros/1/picture";
 
@@ -34,24 +34,26 @@ public class RetrofiNetwork {
                     .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit retrofit = builder.build();
+    private String username;
 
 
     private LibroService libroSrvc;
 
-    public RetrofiNetwork(){
+    public RetrofiNetwork(String email){
 
         Retrofit retrofit =
                 new Retrofit.Builder().baseUrl( BASE_URL )
                         .addConverterFactory( GsonConverterFactory.create() )
                         .build();
         libroSrvc = retrofit.create(LibroService.class);
+        username = email;
     }
 
     public void getLibros( RequestCallBack<List<Libro>> requestCallback )
     {
         try
         {
-            Call<List<Libro>> call = libroSrvc.getLibrosList( );
+            Call<List<Libro>> call = libroSrvc.getLibrosList(username);
             Response<List<Libro>> execute = call.execute();
             requestCallback.onSuccess( execute.body() );
         }
@@ -63,7 +65,7 @@ public class RetrofiNetwork {
     //aca tambien puede pensar en pasar loos parametros de un libro y luego construir el objeto
     // li = new libro(parametros)
     public void addLibro(Libro li){
-        Call<Libro> call = libroSrvc.addLibro(li);
+        Call<Libro> call = libroSrvc.addLibro(li, username);
         call.enqueue(new Callback<Libro>() {
             @Override
             public void onResponse(Call<Libro> call, Response<Libro> response) {
@@ -115,7 +117,7 @@ public class RetrofiNetwork {
 
     public void misLibros(RequestCallBack<List<Libro>> requestCallBack){
 
-        Call<List<Libro>> call = libroSrvc.getMisLibros();
+        Call<List<Libro>> call = libroSrvc.getMisLibros(username);
         try {
             Response<List<Libro>> execute = call.execute();
             requestCallBack.onSuccess( execute.body() );
@@ -123,14 +125,8 @@ public class RetrofiNetwork {
             e.printStackTrace();
         }
 
-    }/*
 
-    public void buscar(RequestCallBack<List<Libro>> requestCallBack, String bookname){
-        Call<List<Libro>> call = libroSrvc.buscarLibros(bookname);
-
-        call.enqueue(new );
-    }*/
-
+    }
 
     public void misSolicitudes(RequestCallBack<List<List<Libro>>> requestCallBack){
 
@@ -155,6 +151,7 @@ public class RetrofiNetwork {
         }
 
     }
+
 
     public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);

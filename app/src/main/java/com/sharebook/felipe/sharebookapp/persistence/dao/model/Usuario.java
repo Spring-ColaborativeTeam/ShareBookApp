@@ -1,35 +1,26 @@
 package com.sharebook.felipe.sharebookapp.persistence.dao.model;
 
-import com.google.gson.annotations.SerializedName;
-import com.j256.ormlite.field.DatabaseField;
-
-import java.sql.Blob;
-
 /**
  * Created by daniel on 8/05/17.
  */
 
-public class Usuario extends BaseModel {
+public class Usuario {
 
+    //@SerializedName("email")
     private String email;
 
-
-    @DatabaseField
-    @SerializedName("title")
+    //@SerializedName("password")
     private String password;
 
-    @DatabaseField
+    //@SerializedName("nombre")
     private String nombre;
 
-    @DatabaseField
+    //SerializedName("celular")
     private String celular;
 
-    @DatabaseField
-    private Blob imagen;
+    //@SerializedName("imagen")
+    private String imagen;
 
-    public Usuario() {
-
-    }
 
     public String getEmail() {
         return email;
@@ -47,7 +38,7 @@ public class Usuario extends BaseModel {
         return celular;
     }
 
-    public Blob getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
@@ -67,7 +58,7 @@ public class Usuario extends BaseModel {
         this.celular = celular;
     }
 
-    public void setImagen(Blob imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 }

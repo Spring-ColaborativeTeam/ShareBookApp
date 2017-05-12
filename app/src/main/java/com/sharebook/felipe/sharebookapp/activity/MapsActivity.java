@@ -7,7 +7,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,18 +15,11 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,23 +28,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.internal.zzf;
 import com.sharebook.felipe.sharebookapp.R;
 import com.sharebook.felipe.sharebookapp.adapter.IntercambiarLibroAdapter;
 import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
@@ -66,7 +52,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static android.content.Context.LOCATION_SERVICE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
@@ -77,6 +63,7 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
     private RetrofiNetwork network;
     private ExecutorService executorService;
     private List<Libro> libros;
+    private SharedPreferences pref;
     //DataBarSingleton dbs = DataBarSingleton.getInstance();
     GoogleMap mGoogleMap;
     IntercambiarFragment intFra;
@@ -135,7 +122,7 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
         CameraPosition Bogota = CameraPosition.builder().target(location).zoom(16).bearing(0).tilt(45).build();
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Bogota));
         mGoogleMap.setOnMarkerClickListener(this);
-
+        pref = getApplicationContext().getSharedPreferences("userDetails", 0);
         traerLibrosRetrofit();
 
     }
@@ -193,7 +180,7 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
     }
 
     public void traerLibrosRetrofit(){
-        network = new RetrofiNetwork();
+        network = new RetrofiNetwork(pref.getString("username", null));
         executorService = Executors.newFixedThreadPool(1);
         executorService.execute(new Runnable() {
 

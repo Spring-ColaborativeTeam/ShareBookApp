@@ -2,6 +2,7 @@ package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class BuscarActivity extends Fragment {
 
     private String query;
@@ -32,6 +35,7 @@ public class BuscarActivity extends Fragment {
     private List<Libro> libros;
     private EditText text;
     private Button buscar;
+    private SharedPreferences pref;
     MisLibrosAdapter adapter;
 
     @Nullable
@@ -39,6 +43,7 @@ public class BuscarActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View resp =  inflater.inflate(R.layout.activity_buscar, null);
         configureRecyclerView(resp);
+        pref = getApplicationContext().getSharedPreferences("userDetails", 0);
         return resp;
     }
 
@@ -59,7 +64,7 @@ public class BuscarActivity extends Fragment {
 
     private void searchBook(){
         Log.d("BuscarActivity", "entro");
-        RetrofiNetwork retrofiNetwork = new RetrofiNetwork();
+        RetrofiNetwork retrofiNetwork = new RetrofiNetwork(pref.getString("username", null));
 
         LibroService loginService = RetrofiNetwork.createService(LibroService.class, "sad", "sa");
 
