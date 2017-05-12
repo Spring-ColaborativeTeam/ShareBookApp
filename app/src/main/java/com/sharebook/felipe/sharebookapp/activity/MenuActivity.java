@@ -88,6 +88,7 @@ public class MenuActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         TextView currentUser = (TextView) header.findViewById(R.id.currentUser);
         currentUser.setText(pref.getString("username", null));
+        //
         fragmentManager = getFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.mainFrame, mapFra);
