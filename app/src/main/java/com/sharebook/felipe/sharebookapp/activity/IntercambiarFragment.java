@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.sharebook.felipe.sharebookapp.R;
+import com.sharebook.felipe.sharebookapp.adapter.IntercambiarLibroAdapter;
 import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
 import com.sharebook.felipe.sharebookapp.adapter.MisLibrosAdapter;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
@@ -33,6 +34,8 @@ public class IntercambiarFragment extends Fragment {
     private ExecutorService executorService;
     private RecyclerView recyclerView;
     private List<Libro> libros;
+
+    IntercambiarLibroAdapter adapter;
 
     @Nullable
     @Override
@@ -72,7 +75,8 @@ public class IntercambiarFragment extends Fragment {
                     @Override
                     public void run() {
                         if (libros != null) {
-                            recyclerView.setAdapter(new MisLibrosAdapter(libros));
+                            adapter = new IntercambiarLibroAdapter(libros);
+                            recyclerView.setAdapter(adapter);
                         }
                     }
                 });

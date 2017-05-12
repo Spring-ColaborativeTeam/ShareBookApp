@@ -24,12 +24,12 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
         app:srcCompat="@drawable/bbb"
         android:layout_below="@+id/textIntercambiar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView12"
@@ -48,7 +48,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewIntercambiar"
         android:layout_width="397dp"
-        android:layout_height="467dp"
+        android:layout_height="300dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.266"
@@ -60,9 +60,21 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1"
         tools:layout_editor_absoluteX="2dp"
-        android:layout_alignParentBottom="true"
         android:layout_below="@+id/textView12"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/botonIntercambiar"
+        style="@style/Widget.AppCompat.Button"
+        android:backgroundTint="@android:color/background_light"
+        android:textSize="17sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Solicitar"
+        android:onClick="crearSolicitud"
+        android:layout_below="@+id/recyclerViewIntercambiar"
+        />
 
 </RelativeLayout>

@@ -27,6 +27,7 @@ public class MisLibrosActivity extends Fragment {
     private ExecutorService executorService;
     private RecyclerView recyclerView;
     private List<Libro> libros;
+    MisLibrosAdapter adapter;
 
     @Nullable
     @Override
@@ -69,7 +70,8 @@ public class MisLibrosActivity extends Fragment {
                     @Override
                     public void run() {
                         if (libros != null) {
-                            recyclerView.setAdapter(new MisLibrosAdapter(libros));
+                            adapter = new MisLibrosAdapter(libros);
+                            recyclerView.setAdapter(adapter);
                         }
                     }
                 });

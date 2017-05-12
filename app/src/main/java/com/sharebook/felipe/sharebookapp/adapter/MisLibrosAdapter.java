@@ -2,8 +2,11 @@ package com.sharebook.felipe.sharebookapp.adapter;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,8 @@ import com.sharebook.felipe.sharebookapp.activity.IntercambiarFragment;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 import com.squareup.picasso.Picasso;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -25,14 +30,16 @@ public class MisLibrosAdapter extends RecyclerView.Adapter<MisLibrosAdapter.View
     private final List<Libro> publicacions;
     private Context context;
     private CardView cardView;
-
+    View view;
+    public Bitmap imagen;
+    public String idLibroPublicar;
     public MisLibrosAdapter(List<Libro> publicacions) {
         this.publicacions = publicacions;
     }
     @Override
     public MisLibrosAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.row_mislibros, parent, false);
+         view = LayoutInflater.from(context).inflate(R.layout.row_mislibros, parent, false);
 
         return new ViewHolder(view);
     }
@@ -43,9 +50,15 @@ public class MisLibrosAdapter extends RecyclerView.Adapter<MisLibrosAdapter.View
         Libro publi = publicacions.get(position);
         viewHolder.name.setText(publi.getName());
         viewHolder.description.setText(publi.getDescription());
+
         String base_tmp = "https://sharebookapp.herokuapp.com/libros/"+publi.getId()+"/picture";
         System.out.println("id"+publi.getId()+ "URL"+ publi.getImageUrl());
         Picasso.with(context).load(base_tmp).into(viewHolder.logo);
+        System.out.println(publi.getName()+"Siiiiiii ----- Imagen"+idLibroPublicar);
+        if(publi.getName() == idLibroPublicar){
+            System.out.println("Siiiiiii ----- Imagen");
+            viewHolder.logo.setImageBitmap(imagen);
+        }
 
     }
 
