@@ -293,7 +293,7 @@ public class MenuActivity extends AppCompatActivity
     }
 
     public void addSolicitudRetrofit(final Solicitud solicitud){
-        network = new RetrofiNetwork();
+        network = new RetrofiNetwork(pref.getString("username", null));
         executorService = Executors.newFixedThreadPool(1);
         executorService.execute(new Runnable() {
 
