@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.sharebook.felipe.sharebookapp.R;
+import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 
 /**
  * Created by Diego on 25/04/2017.
@@ -34,6 +36,10 @@ public class PublicarFragment extends Fragment {
     Uri uriImagen = null;
     String imagePath;
     Boolean tomoFoto = false;
+    private SharedPreferences sharedPreferences;
+    Libro libroIntercambio;
+
+    private SharedPreferences pref;
 
     @Nullable
     @Override

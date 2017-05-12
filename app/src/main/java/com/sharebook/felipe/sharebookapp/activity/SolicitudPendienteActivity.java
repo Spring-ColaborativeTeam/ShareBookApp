@@ -1,6 +1,7 @@
 package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,17 +23,21 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class SolicitudPendienteActivity extends Fragment {
     private RetrofiNetwork resources;
     private ExecutorService executorService;
     private RecyclerView recyclerView;
     private List<List<Libro>> libros;
     SolicitudesPendientesAdaptar adapter;
+    private SharedPreferences pref;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        resources = new RetrofiNetwork();
+        pref = getApplicationContext().getSharedPreferences("userDetails", 0);
+        resources = new RetrofiNetwork(pref.getString("username", null));
         View resp =  inflater.inflate(R.layout.activity_solicitudes_pendientes, null);
         configureRecyclerView(resp);
         misSolicitudes();
