@@ -7,7 +7,6 @@ import com.sharebook.felipe.sharebookapp.security.AuthenticationInterceptor;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.ListResourceBundle;
 
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
@@ -113,7 +112,6 @@ public class RetrofiNetwork {
 
     }
 
-    }
     public void misSolicitudes(RequestCallBack<List<List<Libro>>> requestCallBack){
 
         Call<List<List<Libro>>> call = libroSrvc.getMisSolicitudes();

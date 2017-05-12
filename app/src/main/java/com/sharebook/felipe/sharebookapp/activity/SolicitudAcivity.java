@@ -1,6 +1,7 @@
 package com.sharebook.felipe.sharebookapp.activity;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sharebook.felipe.sharebookapp.R;
-import com.sharebook.felipe.sharebookapp.adapter.MisLibrosAdapter;
 import com.sharebook.felipe.sharebookapp.adapter.SolicitudesAdapter;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
@@ -27,11 +27,12 @@ public class SolicitudAcivity extends Fragment {
     private RecyclerView recyclerView;
     private List<List<Libro>> libros;
     SolicitudesAdapter adapter;
+    private SharedPreferences pref;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        resources = new RetrofiNetwork();
+        resources = new RetrofiNetwork(pref.getString("username", null));
         View resp =  inflater.inflate(R.layout.activity_solicitud_acivity, null);
         configureRecyclerView(resp);
         misSolicitudes();
