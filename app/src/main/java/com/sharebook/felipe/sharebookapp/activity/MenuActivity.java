@@ -162,6 +162,10 @@ public class MenuActivity extends AppCompatActivity
             setTitle("Solicitudes");
             fragment = new SolicitudAcivity();
         }
+        else if(id == R.id.solicitudpendiente) {
+            setTitle("Solicitudes Pendientes");
+            fragment = new SolicitudPendienteActivity();
+        }
         else if(id == R.id.logout) {
             logout();
         }
@@ -337,7 +341,7 @@ public class MenuActivity extends AppCompatActivity
 
 
 
-    public void crearSolicitud(View view){
+    public void crearSolicitud(View view) throws InterruptedException {
 
         if(intercambiarLista){
              libroSelec = intFra.adapter.libroSelected;
@@ -347,11 +351,20 @@ public class MenuActivity extends AppCompatActivity
         }
         if(libroSelec != null && libroIntercambio != null ) {
             Solicitud s = new Solicitud();
-            s.setLibro1(libroSelec);
-            s.setLibro2(libroIntercambio);
+            s.setLibro1(libroIntercambio);
+            s.setLibro2(libroSelec);
             addSolicitudRetrofit(s);
+            Thread.sleep(1000);
             intercambiarLista = false;
-            Toast.makeText(this, "Seleciono " + libroSelec.getName()+ "--"+libroIntercambio.getName(), Toast.LENGTH_SHORT).show();
+            Fragment fragment = null;
+
+            fragment = new SolicitudPendienteActivity();
+
+            transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.mainFrame, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+           // Toast.makeText(this, "Seleciono " + libroSelec.getName()+ "--"+libroIntercambio.getName(), Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, "No ha seleccionado un libro para intercambiar", Toast.LENGTH_SHORT).show();
         }

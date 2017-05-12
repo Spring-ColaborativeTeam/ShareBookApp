@@ -45,6 +45,10 @@ public interface LibroService {
     @GET("solicitud/usuario/diego@sharebook.com")
     Call<List<List<Libro>>> getMisSolicitudes();
 
+    @GET("solicitud/usuario/pendientes/diego@sharebook.com")
+    Call<List<List<Libro>>> getMisSolicitudesPendientes();
+
+
    /* @GET("solicitud/usuario/diego@sharebook.com")
     Call<Solicitud> getSolicitudUsuario();*/
 

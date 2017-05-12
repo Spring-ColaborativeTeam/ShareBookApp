@@ -144,6 +144,18 @@ public class RetrofiNetwork {
 
     }
 
+    public void misSolicitudesPendientes(RequestCallBack<List<List<Libro>>> requestCallBack){
+
+        Call<List<List<Libro>>> call = libroSrvc.getMisSolicitudesPendientes();
+        try {
+            Response<List<List<Libro>>> execute = call.execute();
+            requestCallBack.onSuccess( execute.body() );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);
     }
