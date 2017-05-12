@@ -33,8 +33,15 @@ public interface LibroService {
     @POST("libros/{username}")
     Call<Libro> addLibro(@Body Libro libro, @Path("username") String username);
 
+
+    @POST("solicitud/{id1}/{id2}")
+    Call<Solicitud> addSolicitud(@Path("id1") String id1, @Path("id2") String id2, @Body Solicitud solicitud);
+
+   
+
     @GET("mislibros/{username}")
     Call<List<Libro>> getMisLibros(@Path("username") String username);
+
 
     @GET("libros/buscar/{bookname}")
     Call<List<Libro>> buscarLibros(@Path("bookname") String bookname);
@@ -45,6 +52,10 @@ public interface LibroService {
 
     @GET("solicitud/usuario/diego@sharebook.com")
     Call<List<List<Libro>>> getMisSolicitudes();
+
+    @GET("solicitud/usuario/pendientes/diego@sharebook.com")
+    Call<List<List<Libro>>> getMisSolicitudesPendientes();
+
 
    /* @GET("solicitud/usuario/diego@sharebook.com")
     Call<Solicitud> getSolicitudUsuario();*/

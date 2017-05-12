@@ -80,6 +80,22 @@ public class RetrofiNetwork {
     });
     }
 
+    public void addSolicitud(Solicitud s){
+        Call<Solicitud> call = libroSrvc.addSolicitud(s.getLibro1().getId(), s.getLibro2().getId(), s);
+        call.enqueue(new Callback<Solicitud>() {
+            @Override
+            public void onResponse(Call<Solicitud> call, Response<Solicitud> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Solicitud> call, Throwable t) {
+
+            }
+
+        });
+    }
+
     public void registroUsuario(Usuario usuario){
         Call<Usuario> call = libroSrvc.createUser(usuario);
         call.enqueue(new Callback<Usuario>() {
@@ -115,6 +131,18 @@ public class RetrofiNetwork {
     public void misSolicitudes(RequestCallBack<List<List<Libro>>> requestCallBack){
 
         Call<List<List<Libro>>> call = libroSrvc.getMisSolicitudes();
+        try {
+            Response<List<List<Libro>>> execute = call.execute();
+            requestCallBack.onSuccess( execute.body() );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void misSolicitudesPendientes(RequestCallBack<List<List<Libro>>> requestCallBack){
+
+        Call<List<List<Libro>>> call = libroSrvc.getMisSolicitudesPendientes();
         try {
             Response<List<List<Libro>>> execute = call.execute();
             requestCallBack.onSuccess( execute.body() );

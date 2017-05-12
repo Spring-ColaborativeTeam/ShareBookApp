@@ -35,6 +35,7 @@
 
     <string name="logout">Cerrar Sesión</string>
     <string name="solicitud">Solicitudes</string>
+    <string name="solicitudpendiente">Solicitudes Pendientes</string>
     <string name="libros_dispo">Libros Disponibles</string>
     <string name="publicar">Publicar Libro</string>
     <string name="buscar">Buscar</string>

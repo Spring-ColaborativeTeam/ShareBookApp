@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -22,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sharebook.felipe.sharebookapp.R;
+import com.sharebook.felipe.sharebookapp.adapter.IntercambiarLibroAdapter;
 import com.sharebook.felipe.sharebookapp.adapter.LibroAdapter;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.Libro;
 import com.sharebook.felipe.sharebookapp.persistence.dao.model.NetworkException;
@@ -54,16 +58,20 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
         GoogleMap.OnMyLocationButtonClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
+    FragmentManager fragmentManager;
+    FragmentTransaction transaction;
     private RetrofiNetwork network;
     private ExecutorService executorService;
     private List<Libro> libros;
     private SharedPreferences pref;
     //DataBarSingleton dbs = DataBarSingleton.getInstance();
     GoogleMap mGoogleMap;
+    IntercambiarFragment intFra;
     MapView mapView;
     View view;
     private List<Libro> librosMarkers = new LinkedList<Libro>();
     LibroAdapter libroAdapter;
+    Libro libro;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
@@ -139,7 +147,7 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-            Libro libro = (Libro) marker.getTag();
+             libro = (Libro) marker.getTag();
             AlertDialog.Builder alertadd = new AlertDialog.Builder(getActivity());
             LayoutInflater factory = LayoutInflater.from(getActivity());
             final View view = factory.inflate(R.layout.dialog_marker_layout, null);
@@ -152,6 +160,18 @@ public class MapsActivity extends Fragment implements GoogleMap.OnMarkerClickLis
             final ImageView imageLibro = (ImageView) view.findViewById(R.id.imagenLibro);
             String base_tmp = "https://sharebookapp.herokuapp.com/libros/"+libro.getId()+"/picture";
             Picasso.with(view.getContext()).load(base_tmp).into(imageLibro);
+            Button buttonOne = (Button) view.findViewById(R.id.button5);
+            buttonOne.setOnClickListener(new Button.OnClickListener() {
+                public void onClick(View v) {
+                    Log.d("1234234", "Vealo --------> "+libro.getName());
+                    fragmentManager = getFragmentManager();
+                    intFra = new IntercambiarFragment();
+                    intFra.setLibroSelect(libro);
+                    transaction = fragmentManager.beginTransaction();
+                    transaction.add(R.id.mainFrame, intFra);
+                    transaction.commit();
+                }
+            });
             alertadd.setView(view);
 
             alertadd.show();
