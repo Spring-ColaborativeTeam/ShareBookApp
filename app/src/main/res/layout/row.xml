@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:onClick="intercambiarLibro"
         android:layout_marginBottom="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -65,12 +64,14 @@
                 android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:text="Km"
 
                 android:layout_gravity="center"
                 android:layout_weight="0.56" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+
 
 </LinearLayout>

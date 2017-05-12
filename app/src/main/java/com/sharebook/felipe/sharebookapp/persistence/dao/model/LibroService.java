@@ -40,7 +40,12 @@ public interface LibroService {
     Call<List<Libro>> buscarLibros(@Path("bookname") String bookname);
 
     @GET("solicitud/usuario/diego@sharebook.com")
-    Call<Solicitud> getSolicitudUsuario();
+    Call<List<List<Libro>>> getMisSolicitudes();
+
+   /* @GET("solicitud/usuario/diego@sharebook.com")
+    Call<Solicitud> getSolicitudUsuario();*/
+
+
 
 
 }
